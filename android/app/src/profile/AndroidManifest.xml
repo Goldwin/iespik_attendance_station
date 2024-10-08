@@ -3,5 +3,17 @@
          the Flutter tool needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- For Wi-Fi -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- For Bluetooth -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- For Bluetooth Low Energy, Android 11 and earlier-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- For Bluetooth Low Energy, Android 12 and later -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 </manifest>
