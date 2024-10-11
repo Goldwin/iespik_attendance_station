@@ -19,14 +19,16 @@ class _Auth {
             body: body)
         .then((response) {
       if (response.statusCode != 200) {
-        Map<String, dynamic> errBody =
-            jsonDecode(response.body) as Map<String, dynamic>;
+        // Map<String, dynamic> errBody =
+        //     jsonDecode(response.body) as Map<String, dynamic>;
         return false;
       }
       Map<String, dynamic> respBody =
           jsonDecode(response.body) as Map<String, dynamic>;
       String token = respBody['data']['token'];
       prefs.setString('token', token);
+      int tokenExpiredAt = DateTime.now().second + 7 * 24 * 60 * 60;
+      prefs.setInt('tokenExpiredAt', tokenExpiredAt);
       return true;
     }).onError((e, s) {
       return false;
