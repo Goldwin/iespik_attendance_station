@@ -5,7 +5,7 @@ import io.flutter.plugin.common.MethodChannel
 import org.iespik.printer.PrinterManager
 
 class MainActivity : FlutterActivity() {
-    private val channel = "org.iespik.iespik_attendance_station/printer"
+    private val channel = "org.iespik.printer.PrinterManager"
     private val printerManager: PrinterManager = PrinterManager()
 
     override fun configureFlutterEngine(flutterEngine: io.flutter.embedding.engine.FlutterEngine) {
@@ -16,7 +16,9 @@ class MainActivity : FlutterActivity() {
         ).setMethodCallHandler { call, result ->
             if (call.method == "listPrinters") {
                 result.success(printerManager.listPrinters(context).map { it.toMap() })
-            } else {
+            } else if (call.method == "ping")
+                result.success("pong")
+            else {
                 result.notImplemented()
             }
         }

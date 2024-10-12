@@ -1,7 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/api/utils.dart';
+import 'package:iespik_attendance_station/app/station/widgets/printer_list.dart';
 
 class StationScreen extends StatefulWidget {
   const StationScreen({super.key});
@@ -17,16 +15,10 @@ class _StationScreenState extends State<StationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: FilledButton(onPressed: (){
-        setState(() {
-          value = Random().nextInt(1024);
-        });
-                removeToken().then((_) {
-                  if (context.mounted) {
-                    Navigator.popAndPushNamed(context, "/");
-                  }
-                });
-              }, child: Text('$value'))),
+      appBar: AppBar(
+        title: const Text('Station'),
+      ),
+      body: SafeArea(child: PrinterList()),
     );
   }
 }
