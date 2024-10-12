@@ -67,8 +67,11 @@ class _LoginFormState extends State<LoginForm> {
                   }
                   authApiClient
                       .login(emailController.text, passwordController.text)
-                      .then((isSuccess) {})
-                      .onError((err, s) {
+                      .then((data) {
+                    if (context.mounted) {
+                      Navigator.popAndPushNamed(context, '/');
+                    }
+                  }).onError((err, s) {
                     ErrorResponse e = err as ErrorResponse;
                     Fluttertoast.showToast(
                         msg: e.message ?? "Unknown Error During Login",
