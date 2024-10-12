@@ -1,14 +1,21 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:iespik_attendance_station/commons/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String authUrl = 'https://api.brightfellow.net/app';
 
-class AuthData {}
+class AuthData {
+  String? token;
+
+  AuthData.withToken(this.token);
+
+  AuthData();
+}
 
 class _Auth {
-  Future<bool> login(String email, String password) async {
+  Future<AuthData> login(String email, String password) async {
     final prefs = await SharedPreferences.getInstance();
     var body =
         jsonEncode(<String, String>{'email': email, 'password': password});
@@ -18,10 +25,11 @@ class _Auth {
             },
             body: body)
         .then((response) {
-      if (response.statusCode != 200) {
-        // Map<String, dynamic> errBody =
-        //     jsonDecode(response.body) as Map<String, dynamic>;
-        return false;
+      Map<String, dynamic> x =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      APIResponse<AuthData> apiResponse = APIResponse<AuthData>.fromJson(x);
+      if (apiResponse.isError()) {
+        throw apiResponse.error!;
       }
       Map<String, dynamic> respBody =
           jsonDecode(response.body) as Map<String, dynamic>;
@@ -29,9 +37,7 @@ class _Auth {
       prefs.setString('token', token);
       int tokenExpiredAt = DateTime.now().second + 7 * 24 * 60 * 60;
       prefs.setInt('tokenExpiredAt', tokenExpiredAt);
-      return true;
-    }).onError((e, s) {
-      return false;
+      return AuthData.withToken(token);
     });
   }
 }

@@ -9,10 +9,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: FractionallySizedBox(
-            widthFactor: 0.5,
-            child: LoginForm(),
-          ),
+          child: LoginForm(),
         ),
       ),
     );
