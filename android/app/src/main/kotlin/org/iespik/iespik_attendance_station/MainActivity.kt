@@ -14,12 +14,15 @@ class MainActivity : FlutterActivity() {
             flutterEngine.dartExecutor.binaryMessenger,
             channel
         ).setMethodCallHandler { call, result ->
-            if (call.method == "listPrinters") {
-                result.success(printerManager.listPrinters(context).map { it.toMap() })
-            } else if (call.method == "ping")
-                result.success("pong")
-            else {
-                result.notImplemented()
+            when (call.method) {
+                "listPrinters" -> {
+                    result.success(printerManager.listPrinters(context).map { it.toMap() })
+                }
+
+                "ping" -> result.success("pong")
+                else -> {
+                    result.notImplemented()
+                }
             }
         }
     }

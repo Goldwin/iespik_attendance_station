@@ -4,7 +4,7 @@ class Printer {
   String? model;
   String? localName;
 
-  Printer.fromMap(Map<String, dynamic> map, channel) {
+  Printer.fromMap(Map<dynamic, dynamic> map, channel) {
     model = map['model'] as String;
     localName = map['localName'] as String;
   }

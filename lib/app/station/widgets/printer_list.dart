@@ -42,7 +42,7 @@ class _PrinterListState extends State<PrinterList> {
           children: printers.isNotEmpty
               ? printers
                   .map((p) => ListTile(
-                        title: Text(p.localName ?? "No Name"),
+                        title: Text(p.model ?? "No Name"),
                       ))
                   .toList()
               : <Widget>[Text("No Printer Found")]),
