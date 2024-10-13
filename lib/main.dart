@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:iespik_attendance_station/api/utils.dart';
 import 'package:iespik_attendance_station/app/login/index.dart';
-import 'package:iespik_attendance_station/app/station/index.dart';
+import 'package:iespik_attendance_station/app/station/screens/event_selection_screen.dart';
+import 'package:iespik_attendance_station/app/station/screens/printer_config_screen.dart';
 
 void main() {
   runApp(const MyApp());
+}
+
+FutureBuilder<bool> navGuard(Widget Function(BuildContext) screenBuilder) {
+  return FutureBuilder(
+      future: isLoggedIn(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
+          case ConnectionState.done:
+            return snapshot.data ?? false
+                ? screenBuilder(context)
+                : const LoginScreen();
+          default:
+            return const LoginScreen();
+        }
+      });
 }
 
 class MyApp extends StatelessWidget {
@@ -21,21 +39,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) => FutureBuilder(
-            future: isLoggedIn(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return Scaffold(
-                      body: Center(child: CircularProgressIndicator()));
-                case ConnectionState.done:
-                  return snapshot.data ?? false
-                      ? const StationScreen()
-                      : const LoginScreen();
-                default:
-                  return const LoginScreen();
-              }
-            }),
+        '/': (BuildContext context) =>
+            navGuard((ctx) => const EventSelectionScreen()),
+        '/printer_config': (BuildContext context) =>
+            navGuard((ctx) => const PrinterConfigScreen()),
       },
     );
   }

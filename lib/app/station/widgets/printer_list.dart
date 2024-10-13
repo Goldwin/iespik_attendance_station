@@ -39,12 +39,13 @@ class _PrinterListState extends State<PrinterList> {
         _fetchPrinterList();
       },
       child: ListView(
-        children: printers
-            .map((p) => ListTile(
-                  title: Text(p.localName ?? "No Name"),
-                ))
-            .toList(),
-      ),
+          children: printers.isNotEmpty
+              ? printers
+                  .map((p) => ListTile(
+                        title: Text(p.localName ?? "No Name"),
+                      ))
+                  .toList()
+              : <Widget>[Text("No Printer Found")]),
     );
   }
 }
