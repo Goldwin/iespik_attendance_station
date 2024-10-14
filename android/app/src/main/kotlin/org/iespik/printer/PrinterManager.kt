@@ -5,6 +5,7 @@ import com.brother.bfelement.BFElementModelDefinition.ModelName
 import com.brother.sdk.lmprinter.Channel
 import com.brother.sdk.lmprinter.PrinterSearcher
 import io.flutter.Log
+import java.io.File
 
 class PrinterManager {
     private lateinit var printers: Map<String, Printer>
@@ -31,10 +32,23 @@ class PrinterManager {
     private fun isPrinterDevice(channel: Channel): Boolean {
         val modelName = channel.extraInfo[Channel.ExtraInfoKey.ModelName] ?: ""
         //TODO implement with better idea
-        Log.d(
-            "LabelPrinter",
-            "ModelName: $modelName; Expected Model Name Prefix: ${ModelName.QL_820NWB}"
-        )
         return modelName.replace('-', '_').startsWith(ModelName.QL_820NWB.toString())
+    }
+
+    fun print(printerLocalName: String?, filePath: String?): PrintResult {
+        when {
+            printerLocalName == null -> {
+                return PrintResult.PrinterNotFoundError
+            }
+
+            filePath == null -> {
+                return PrintResult.InvalidPathError
+            }
+        }
+
+        val file = File(filePath!!)
+        val result = printers[printerLocalName]?.print(file) ?: PrintResult.PrinterNotFoundError
+
+        return result
     }
 }

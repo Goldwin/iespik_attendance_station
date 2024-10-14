@@ -19,6 +19,14 @@ class MainActivity : FlutterActivity() {
                     result.success(printerManager.listPrinters(context).map { it.toMap() })
                 }
 
+                "print" -> {
+                    val printerLocalName = call.argument<String>("printerLocalName")
+                    val filePath = call.argument<String>("filePath")
+                    val printResult = printerManager.print(printerLocalName, filePath)
+
+                    result.success(printResult.toMap())
+                }
+
                 "ping" -> result.success("pong")
                 else -> {
                     result.notImplemented()
