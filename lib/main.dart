@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/api/utils.dart';
 import 'package:iespik_attendance_station/app/login/index.dart';
-import 'package:iespik_attendance_station/app/station/screens/event_selection_screen.dart';
 import 'package:iespik_attendance_station/app/station/screens/printer_config_screen.dart';
+import 'package:iespik_attendance_station/app/station/screens/station_screen.dart';
+import 'package:iespik_attendance_station/commons/auth.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,8 +39,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) =>
-            navGuard((ctx) => const EventSelectionScreen()),
+        '/': (BuildContext context) => navGuard((ctx) => const StationScreen()),
         '/printer_config': (BuildContext context) =>
             navGuard((ctx) => const PrinterConfigScreen()),
       },
