@@ -1,4 +1,4 @@
-enum LabelObjectType { text, image, verticalLine, horizontalLine }
+enum LabelObjectType { text, image, verticalLine, horizontalLine, rectangle }
 
 enum LabelOrientation { landscape, portrait }
 
@@ -15,6 +15,28 @@ class LabelImageObject extends LabelObject {
 
   factory LabelImageObject.fromJson(Map<String, dynamic> json) {
     return LabelImageObject(json['image']);
+  }
+}
+
+class LabelRectangleObject extends LabelObject {
+  List<double> at;
+  double width;
+  double height;
+  String strokeColor;
+  String fillColor;
+
+  LabelRectangleObject(
+      this.at, this.width, this.height, this.strokeColor, this.fillColor)
+      : super(LabelObjectType.rectangle);
+
+  factory LabelRectangleObject.fromJson(Map<String, dynamic> json) {
+    return LabelRectangleObject(
+      json['at'],
+      json['width'],
+      json['height'],
+      json['strokeColor'],
+      json['fillColor'],
+    );
   }
 }
 
@@ -88,19 +110,21 @@ class LabelTextObject extends LabelObject {
   String? overflow;
   String? align;
   String? valign;
+  String? background;
 
   LabelTextObject(
-    this.name,
-    this.color,
-    this.styles,
-    this.size,
-    this.at,
-    this.width,
-    this.height,
-    this.overflow,
-    this.align,
-    this.valign,
-  ) : super(LabelObjectType.text);
+      this.name,
+      this.color,
+      this.styles,
+      this.size,
+      this.at,
+      this.width,
+      this.height,
+      this.overflow,
+      this.align,
+      this.valign,
+      this.background)
+      : super(LabelObjectType.text);
 
   factory LabelTextObject.fromJson(Map<String, dynamic> json) {
     return LabelTextObject(
@@ -114,6 +138,7 @@ class LabelTextObject extends LabelObject {
       json['overflow'],
       json['align'],
       json['valign'],
+      json['background'],
     );
   }
 }
@@ -131,6 +156,8 @@ class LabelObjectFactory {
         (json) => LabelHorizontalLineObject.fromJson(json);
     mapper[LabelObjectType.verticalLine.name] =
         (json) => LabelVerticalLineObject.fromJson(json);
+    mapper[LabelObjectType.rectangle.name] =
+        (json) => LabelRectangleObject.fromJson(json);
   }
 
   factory LabelObjectFactory.getInstance() {

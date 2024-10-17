@@ -3,6 +3,8 @@ import 'package:iespik_attendance_station/app/station/widgets/double_back_pop_sc
 import 'package:iespik_attendance_station/app/station/widgets/station_drawer.dart';
 import 'package:iespik_attendance_station/app/station/widgets/station_leading.dart';
 
+import '../widgets/test_canvas.dart';
+
 class EventSelectionScreen extends StatefulWidget {
   const EventSelectionScreen({super.key});
 
@@ -31,12 +33,14 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
       drawer: StationDrawer(),
       body: DoubleBackQuit(
         child: RefreshIndicator(
-            onRefresh: _fetchTodayEvent,
-            child: ListView(
-              children: _eventList.isNotEmpty
-                  ? _eventList
-                  : <Widget>[Text('No Event Found')],
-            )),
+          onRefresh: _fetchTodayEvent,
+          child: SafeArea(child: TestCanvas()),
+          // child: ListView(
+          //   children: _eventList.isNotEmpty
+          //       ? _eventList
+          //       : <Widget>[Text('No Event Found')],
+          // ),
+        ),
       ),
     );
   }
