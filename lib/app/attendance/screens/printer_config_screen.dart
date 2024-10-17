@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/station/widgets/double_back_pop_scope.dart';
-import 'package:iespik_attendance_station/app/station/widgets/printer_list.dart';
-import 'package:iespik_attendance_station/app/station/widgets/station_drawer.dart';
-import 'package:iespik_attendance_station/app/station/widgets/station_leading.dart';
+import 'package:iespik_attendance_station/app/attendance/widgets/printer_list.dart';
+import 'package:iespik_attendance_station/app/attendance/widgets/station_drawer.dart';
+import 'package:iespik_attendance_station/app/attendance/widgets/station_leading.dart';
+import 'package:iespik_attendance_station/app/commons/double_back_pop_scope.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PrinterConfigScreen extends StatefulWidget {
