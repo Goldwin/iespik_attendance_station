@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label.dart';
 import 'package:iespik_attendance_station/app/attendance/utilities/label/label_painter.dart';
 import 'package:iespik_attendance_station/infra/printer/printer_manager.dart';
 
