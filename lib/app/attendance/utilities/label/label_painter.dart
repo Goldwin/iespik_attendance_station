@@ -19,13 +19,17 @@ class LabelPainter extends CustomPainter {
             _label.paperSize[1] - _label.margin[3]),
         Paint()..color = Colors.white);
     canvas.translate(_label.margin[0], _label.margin[1]);
-    canvas.drawCircle(Offset(10, 10), 10, Paint()..color = Colors.red);
+
+    final width = 200.0;
+    final height = 60.0;
+    final left = 0.0;
+    final top = 0.0;
 
     TextPainter tp = TextPainter(
       text: TextSpan(
-        text: "henlo, this is the very long text. it won't fit",
+        text: "henlo",
         style: TextStyle(
-          color: Color(int.parse("FF000000", radix: 16)),
+          color: Color(int.parse("FFFFFFFF", radix: 16)),
           //color: Colors.black,
           fontSize: 30,
           fontFamily: "Lato",
@@ -33,22 +37,26 @@ class LabelPainter extends CustomPainter {
         ),
       ),
       maxLines: 1,
-      textAlign: TextAlign.left,
+      textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
+      textWidthBasis: TextWidthBasis.parent,
     );
     tp.layout(
-      minWidth: 0,
+      minWidth: width,
       maxWidth: double.infinity,
     );
-    final expectedWidth =
-        _label.paperSize[0] - _label.margin[0] - _label.margin[2];
-    final scaleFactor = expectedWidth / tp.width;
 
-    canvas.scale(scaleFactor, scaleFactor);
+    canvas.drawRect(
+        Rect.fromLTWH(left, top, width, height), Paint()..color = Colors.black);
+    final widthFactor = width / tp.width;
+    final transformedHeight = tp.height * widthFactor;
+    canvas.scale(widthFactor);
     tp.paint(
       canvas,
-      Offset(0, 0),
+      Offset(0, (height / 2 - transformedHeight / 2) / widthFactor),
     );
+    canvas.scale(1 / widthFactor);
+    tp.dispose();
   }
 
   @override
