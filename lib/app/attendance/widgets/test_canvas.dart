@@ -16,21 +16,13 @@ class TestCanvas extends StatefulWidget {
 
 class _TestCanvasState extends State<TestCanvas> {
   Label? _label;
+
   @override
   Widget build(BuildContext context) {
-    if (_label == null) {
-      getLabel("kid_label").then((label) {
-        setState(() {
-          _label = label;
-        });
-      });
-      return Center(child: CircularProgressIndicator());
-    }
-
     final Map<String, dynamic> data = {
-      "currentDate": "2022-09-01",
+      "currentDate": "01 September 2024",
       "securityCode": "A12B",
-      "numbersWithName": "#1024: Kevin",
+      "numbersWithName": "#1024: John",
       "firstName": "John",
       "lastName": "Nolan",
       "kind": "Regular",
@@ -38,17 +30,48 @@ class _TestCanvasState extends State<TestCanvas> {
       "checkedInBy": "Chris Nolan"
     };
 
-    final painter = LabelPainter(_label!, data);
+    LabelPainter? painter = _label == null ? null : LabelPainter(_label!, data);
 
     return Column(
       children: [
-        SizedBox(
-          width: _label!.paperSize[0],
-          height: _label!.paperSize[1],
-          child: CustomPaint(
-            painter: painter,
-          ),
+        ListTile(
+            title: Text("Adult Label"),
+            onTap: () {
+              getLabel("adult_label").then((label) {
+                setState(() {
+                  _label = label;
+                });
+              });
+            }),
+        ListTile(
+          title: Text("Kids Label"),
+          onTap: () {
+            getLabel("kid_label").then((label) {
+              setState(() {
+                _label = label;
+              });
+            });
+          },
         ),
+        ListTile(
+          title: Text("Security Label"),
+          onTap: () {
+            getLabel("security_label").then((label) {
+              setState(() {
+                _label = label;
+              });
+            });
+          },
+        ),
+        _label != null
+            ? SizedBox(
+                width: _label!.paperSize[0],
+                height: _label!.paperSize[1],
+                child: CustomPaint(
+                  painter: painter,
+                ),
+              )
+            : SizedBox(),
         Expanded(child: SizedBox()),
         SizedBox(
             width: double.infinity,
@@ -59,7 +82,7 @@ class _TestCanvasState extends State<TestCanvas> {
                       recorder,
                       Rect.fromLTWH(
                           0, 0, _label!.paperSize[0], _label!.paperSize[1]));
-                  painter.paint(
+                  painter?.paint(
                       canvas, Size(_label!.paperSize[0], _label!.paperSize[1]));
                   Picture picture = recorder.endRecording();
                   picture
@@ -77,5 +100,3 @@ class _TestCanvasState extends State<TestCanvas> {
     );
   }
 }
-
-
