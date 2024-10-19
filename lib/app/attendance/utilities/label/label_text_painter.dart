@@ -8,6 +8,11 @@ void paintText(
   final left = text.position.left;
   final top = text.position.top;
 
+  TextAlign textAlign = TextAlign.values.singleWhere(
+    (value) => value.name == text.align,
+    orElse: () => TextAlign.center,
+  );
+
   TextPainter tp = TextPainter(
     text: TextSpan(
       text: data[text.name] ?? text.name,
@@ -20,7 +25,7 @@ void paintText(
       ),
     ),
     maxLines: 1,
-    textAlign: TextAlign.center,
+    textAlign: textAlign,
     textDirection: TextDirection.ltr,
   );
   tp.layout(

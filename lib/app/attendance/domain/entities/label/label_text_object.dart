@@ -9,7 +9,6 @@ class LabelTextObject extends LabelObject {
   double height;
   String? overflow;
   String? align;
-  String? valign;
   String? background;
 
   LabelTextObject(
@@ -22,7 +21,6 @@ class LabelTextObject extends LabelObject {
       this.styles,
       this.overflow,
       this.align,
-      this.valign,
       this.background})
       : super(type: LabelObjectType.text);
 
@@ -39,7 +37,6 @@ class LabelTextObject extends LabelObject {
         height: json['height'],
         overflow: json['overflow'],
         align: json['align'],
-        valign: json['valign'],
         background: json['background'],
         position: position);
   }

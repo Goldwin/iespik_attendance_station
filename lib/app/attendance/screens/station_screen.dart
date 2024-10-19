@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/widgets/test_canvas.dart';
 
 class StationScreen extends StatefulWidget {
   const StationScreen({super.key});
@@ -18,7 +17,7 @@ class _StationScreenState extends State<StationScreen> {
       appBar: AppBar(
         title: const Text('Station'),
       ),
-      body: SafeArea(child: TestCanvas()),
+      body: SafeArea(child: Text('henlo')),
     );
   }
 }

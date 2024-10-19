@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_image_object.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_line_object.dart';
 import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_object.dart';
+import 'package:iespik_attendance_station/app/attendance/utilities/label/label_image_painter.dart';
 
 import '../../domain/entities/label/label_text_object.dart';
+import 'label_line_painter.dart';
 import 'label_text_painter.dart';
 
 class LabelPainter extends CustomPainter {
@@ -28,6 +32,10 @@ class LabelPainter extends CustomPainter {
       ++count;
       if (object is LabelTextObject) {
         paintText(object, data, canvas, size);
+      } else if (object is LabelLineObject) {
+        paintLine(object, canvas, size);
+      } else if (object is LabelImageObject) {
+        paintLabelImage(object, canvas, size);
       }
     }
     debugPrint("count: $count");
@@ -35,6 +43,6 @@ class LabelPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+    return false;
   }
 }

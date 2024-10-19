@@ -1,4 +1,13 @@
-enum LabelObjectType { text, image, verticalLine, horizontalLine, rectangle }
+
+
+enum LabelObjectType {
+  text,
+  image,
+  line,
+  verticalLine,
+  horizontalLine,
+  rectangle
+}
 
 enum LabelOrientation { landscape, portrait }
 
@@ -21,19 +30,6 @@ abstract class LabelObject {
   });
 }
 
-class LabelImageObject extends LabelObject {
-  String image;
-
-  LabelImageObject(this.image)
-      : super(
-            type: LabelObjectType.image,
-            position: LabelObjectPosition.origin());
-
-  factory LabelImageObject.fromJson(Map<String, dynamic> json) {
-    return LabelImageObject(json['image']);
-  }
-}
-
 class LabelRectangleObject extends LabelObject {
   List<double> at;
   double width;
@@ -54,65 +50,6 @@ class LabelRectangleObject extends LabelObject {
       json['height'],
       json['strokeColor'],
       json['fillColor'],
-    );
-  }
-}
-
-abstract class LabelLineObject extends LabelObject {
-  List<double> at;
-  double width;
-  double height;
-  String strokeColor;
-
-  LabelLineObject(
-      this.at, this.width, this.height, this.strokeColor, LabelObjectType type)
-      : super(type: type, position: LabelObjectPosition.origin());
-}
-
-class LabelVerticalLineObject extends LabelLineObject {
-  LabelVerticalLineObject(
-    List<double> at,
-    double width,
-    double height,
-    String strokeColor,
-  ) : super(
-          at,
-          width,
-          height,
-          strokeColor,
-          LabelObjectType.verticalLine,
-        );
-
-  factory LabelVerticalLineObject.fromJson(Map<String, dynamic> json) {
-    return LabelVerticalLineObject(
-      json['at'],
-      json['width'],
-      json['height'],
-      json['strokeColor'],
-    );
-  }
-}
-
-class LabelHorizontalLineObject extends LabelLineObject {
-  LabelHorizontalLineObject(
-    List<double> at,
-    double width,
-    double height,
-    String strokeColor,
-  ) : super(
-          at,
-          width,
-          height,
-          strokeColor,
-          LabelObjectType.verticalLine,
-        );
-
-  factory LabelHorizontalLineObject.fromJson(Map<String, dynamic> json) {
-    return LabelHorizontalLineObject(
-      json['at'],
-      json['width'],
-      json['height'],
-      json['strokeColor'],
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'label_image_object.dart';
+import 'label_line_object.dart';
 import 'label_object.dart';
 import 'label_text_object.dart';
 
