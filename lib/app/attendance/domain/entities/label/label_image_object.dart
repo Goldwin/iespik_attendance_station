@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'label_object.dart';
 
 class LabelImageObject extends LabelObject {
-  String image;
+  Image image;
   double width;
   double height;
 

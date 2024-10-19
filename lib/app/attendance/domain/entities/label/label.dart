@@ -12,13 +12,16 @@ class Label {
   Label(this.id, this.name, this.paperSize, this.margin, this.objects,
       this.orientation);
 
-  factory Label.fromJson(Map<String, dynamic> json) {
+  static Future<Label> fromJson(Map<String, dynamic> json) async {
     List<dynamic> objects = json['objects'];
-    List<LabelObject> labelObjects = objects
-        .map((obj) => LabelObjectFactory.getInstance().fromJson(obj))
-        .where((obj) => obj != null)
-        .map((obj) => obj!)
-        .toList();
+    List<LabelObject> labelObjects = [];
+
+    for (final obj in objects) {
+      final labelObject = await LabelObjectFactory.getInstance().fromJson(obj);
+      if (labelObject != null) {
+        labelObjects.add(labelObject);
+      }
+    }
 
     return Label(
         json['id'],
