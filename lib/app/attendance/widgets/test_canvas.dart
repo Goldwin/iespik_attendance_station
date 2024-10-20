@@ -63,6 +63,16 @@ class _TestCanvasState extends State<TestCanvas> {
             });
           },
         ),
+        ListTile(
+          title: Text("Volunteer"),
+          onTap: () {
+            getLabel("volunteer").then((label) {
+              setState(() {
+                _label = label;
+              });
+            });
+          },
+        ),
         _label != null
             ? SizedBox(
                 width: _label!.paperSize[0],

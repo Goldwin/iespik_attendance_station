@@ -10,6 +10,7 @@ class LabelTextObject extends LabelObject {
   String? overflow;
   String? align;
   String? background;
+  String? font;
 
   LabelTextObject(
       {required super.position,
@@ -21,6 +22,7 @@ class LabelTextObject extends LabelObject {
       this.styles,
       this.overflow,
       this.align,
+      this.font,
       this.background})
       : super(type: LabelObjectType.text);
 
@@ -38,6 +40,7 @@ class LabelTextObject extends LabelObject {
         overflow: json['overflow'],
         align: json['align'],
         background: json['background'],
+        font: json['font'],
         position: position);
   }
 }
