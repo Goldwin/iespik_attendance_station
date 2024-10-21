@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/queries/event_queries.dart';
 import 'package:iespik_attendance_station/app/attendance/screens/event_selection_screen.dart';
 import 'package:iespik_attendance_station/app/attendance/screens/printer_config_screen.dart';
 import 'package:iespik_attendance_station/app/login/index.dart';
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ChurchEventQueries churchEventQueries = StubChurchEventQueriesImpl();
+
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -39,8 +42,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) =>
-            navGuard((ctx) => const EventSelectionScreen()),
+        '/': (BuildContext context) => navGuard((ctx) => EventSelectionScreen(
+              churchEventQueries,
+            )),
         '/printer_config': (BuildContext context) =>
             navGuard((ctx) => const PrinterConfigScreen()),
       },
