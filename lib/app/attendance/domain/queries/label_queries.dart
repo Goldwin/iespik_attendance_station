@@ -1,7 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label.dart';
+
+import '../entities/label/label.dart';
+
+abstract class LabelQueries {
+  Future<List<Label>> getLabels();
+}
 
 Future<Label> getLabel(String id) async {
   String content = await rootBundle.loadString('assets/$id.json');

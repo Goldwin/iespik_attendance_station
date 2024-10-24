@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/attendance_component.dart';
 import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/household_finder.dart';
 
 class CheckInScreen extends StatefulWidget {
   final ChurchEvent _churchEvent;
+  final AttendanceComponent _attendanceComponent;
 
-  const CheckInScreen(this._churchEvent, {super.key});
+  const CheckInScreen(this._churchEvent, this._attendanceComponent,
+      {super.key});
 
   @override
   State<CheckInScreen> createState() {
@@ -57,7 +60,10 @@ class _CheckInScreenState extends State<CheckInScreen> {
           })
         ],
       ),
-      body: SafeArea(child: Center(child: HouseholdFinder())),
+      body: SafeArea(
+          child: Center(
+              child: HouseholdFinder(
+                  widget._attendanceComponent.getHouseholdQueries()))),
     );
   }
 }

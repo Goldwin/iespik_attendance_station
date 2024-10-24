@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/queries/event_queries.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/attendance_component.dart';
 import 'package:iespik_attendance_station/app/attendance/screens/event_selection_screen.dart';
 import 'package:iespik_attendance_station/app/attendance/screens/printer_config_screen.dart';
 import 'package:iespik_attendance_station/app/login/index.dart';
 import 'package:iespik_attendance_station/commons/auth.dart';
 
+import 'data/attendance/api/attendance_component.dart';
+
 void main() {
-  runApp(const MyApp());
+  AttendanceComponent attendanceComponent = AttendanceComponentImpl();
+  runApp(MyApp(attendanceComponent: attendanceComponent));
 }
 
 FutureBuilder<bool> navGuard(Widget Function(BuildContext) screenBuilder) {
@@ -27,12 +30,12 @@ FutureBuilder<bool> navGuard(Widget Function(BuildContext) screenBuilder) {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AttendanceComponent attendanceComponent;
+
+  const MyApp({required this.attendanceComponent, super.key});
 
   @override
   Widget build(BuildContext context) {
-    ChurchEventQueries churchEventQueries = StubChurchEventQueriesImpl();
-
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -43,7 +46,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (BuildContext context) => navGuard((ctx) => EventSelectionScreen(
-              churchEventQueries,
+              attendanceComponent,
             )),
         '/printer_config': (BuildContext context) =>
             navGuard((ctx) => const PrinterConfigScreen()),

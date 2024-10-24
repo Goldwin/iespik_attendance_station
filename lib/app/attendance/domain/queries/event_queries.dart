@@ -1,5 +1,5 @@
-import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event_activity.dart';
+import '../entities/events/church_event.dart';
+import '../entities/events/church_event_activity.dart';
 
 abstract class ChurchEventQueries {
   Future<List<ChurchEvent>> listActiveEvents();

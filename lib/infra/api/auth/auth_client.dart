@@ -11,6 +11,10 @@ class AuthData {
 
   AuthData.withToken(this.token);
 
+  factory AuthData.fromJson(Map<String, dynamic> json) {
+    return AuthData.withToken(json['token']);
+  }
+
   AuthData();
 }
 
@@ -26,13 +30,12 @@ class _Auth {
         .then((response) {
       Map<String, dynamic> x =
           jsonDecode(response.body) as Map<String, dynamic>;
-      APIResponse<AuthData> apiResponse = APIResponse<AuthData>.fromJson(x);
+      APIResponse<AuthData> apiResponse =
+          APIResponse<AuthData>.fromJson(x, AuthData.fromJson);
       if (apiResponse.isError()) {
         throw apiResponse.error!;
       }
-      Map<String, dynamic> respBody =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      String token = respBody['data']['token'];
+      String token = apiResponse.data?.token ?? "";
       setToken(token);
       return AuthData.withToken(token);
     });
