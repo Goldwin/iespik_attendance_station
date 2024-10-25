@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iespik_attendance_station/app/attendance/domain/attendance_component.dart';
 import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event.dart';
+import 'package:iespik_attendance_station/app/attendance/widgets/household_checkin.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/household_finder.dart';
+
+import '../domain/entities/people/household.dart';
 
 class CheckInScreen extends StatefulWidget {
   final ChurchEvent _churchEvent;
@@ -17,6 +20,14 @@ class CheckInScreen extends StatefulWidget {
 }
 
 class _CheckInScreenState extends State<CheckInScreen> {
+  Household? _selectedHousehold;
+
+  void _onStartOver() {
+    setState(() {
+      _selectedHousehold = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -26,14 +37,13 @@ class _CheckInScreenState extends State<CheckInScreen> {
         title: Text(widget._churchEvent.name),
         actions: [
           Builder(builder: (context) {
-            final onStartOver = () {};
             return width < 600
                 ? IconButton(
-                    onPressed: onStartOver,
+                    onPressed: _onStartOver,
                     icon: const Icon(Icons.refresh),
                   )
                 : TextButton(
-                    onPressed: onStartOver,
+                    onPressed: _onStartOver,
                     child: Row(
                       children: [
                         const Icon(Icons.refresh),
@@ -61,9 +71,22 @@ class _CheckInScreenState extends State<CheckInScreen> {
         ],
       ),
       body: SafeArea(
-          child: Center(
-              child: HouseholdFinder(
-                  widget._attendanceComponent.getHouseholdQueries()))),
+        child: Center(
+          child: _selectedHousehold == null
+              ? HouseholdFinder(
+                  widget._attendanceComponent.getHouseholdQueries(),
+                  onHouseholdSelected: (household) {
+                    debugPrint('selected household: ${household.name}');
+                    setState(() {
+                      _selectedHousehold = household;
+                    });
+                  },
+                )
+              : HouseholdCheckIn(
+                  household: _selectedHousehold!,
+                  churchEvent: widget._churchEvent),
+        ),
+      ),
     );
   }
 }

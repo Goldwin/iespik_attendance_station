@@ -6,10 +6,15 @@ import 'package:iespik_attendance_station/app/attendance/domain/queries/househol
 
 import '../domain/entities/people/person.dart';
 
+typedef OnHouseholdSelected = void Function(Household household);
+
 class HouseholdFinder extends StatefulWidget {
   final HouseholdQueries _householdQueries;
 
-  const HouseholdFinder(this._householdQueries, {super.key});
+  final OnHouseholdSelected? onHouseholdSelected;
+
+  const HouseholdFinder(this._householdQueries,
+      {this.onHouseholdSelected, super.key});
 
   @override
   State<HouseholdFinder> createState() => _HouseholdFinderState();
@@ -29,6 +34,15 @@ class _HouseholdFinderState extends State<HouseholdFinder> {
   @override
   Widget build(BuildContext context) {
     return Autocomplete<Household>(
+      onSelected: widget.onHouseholdSelected,
+      fieldViewBuilder:
+          (context, textEditingController, focusNode, onFieldSubmitted) {
+        return TextField(
+          controller: textEditingController,
+          focusNode: focusNode,
+          decoration: const InputDecoration(hintText: 'Search by name'),
+        );
+      },
       optionsBuilder: (value) async {
         if (_debounceTimer?.isActive ?? false) {
           _debounceTimer?.cancel();
