@@ -71,7 +71,9 @@ class _CheckInScreenState extends State<CheckInScreen> {
         ],
       ),
       body: SafeArea(
-        child: Center(
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: width < 600 ? 10 : 50.0, right: width < 600 ? 10 : 50.0),
           child: _selectedHousehold == null
               ? HouseholdFinder(
                   widget._attendanceComponent.getHouseholdQueries(),

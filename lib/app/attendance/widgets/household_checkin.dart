@@ -18,15 +18,20 @@ class HouseholdCheckIn extends StatefulWidget {
 
 class _HouseholdCheckInState extends State<HouseholdCheckIn> {
   final Map<String, PersonCheckInForm> _personCheckInForm = {};
+  PersonCheckInForm? _checkInBy;
 
   @override
   Widget build(BuildContext context) {
     if (_personCheckInForm.isEmpty) {
-      _personCheckInForm[widget.household.head.id] =
-          PersonCheckInForm(person: widget.household.head);
+      _personCheckInForm[widget.household.head.id] = PersonCheckInForm(
+          person: widget.household.head,
+          activity: widget.churchEvent.activities.first);
       for (Person person in widget.household.members) {
-        _personCheckInForm[person.id] = PersonCheckInForm(person: person);
+        _personCheckInForm[person.id] = PersonCheckInForm(
+            person: person, activity: widget.churchEvent.activities.first);
       }
+
+      _checkInBy = _personCheckInForm[widget.household.head.id];
     }
 
     List<Widget> children = [];
@@ -36,6 +41,16 @@ class _HouseholdCheckInState extends State<HouseholdCheckIn> {
         checkedInCount++;
       }
       children.add(PersonCheckInTile(
+          onActivityChanged: (activity) {
+            setState(() {
+              form.activity = activity;
+            });
+          },
+          onVolunteerStatusChanged: (volunteerStatus) {
+            setState(() {
+              form.isVolunteer = volunteerStatus;
+            });
+          },
           churchEvent: widget.churchEvent,
           form: form,
           onSelectionChanged: (checked) {
@@ -45,9 +60,43 @@ class _HouseholdCheckInState extends State<HouseholdCheckIn> {
           }));
     }
 
-    children.add(FilledButton(
-        onPressed: () {}, child: Text('Check in $checkedInCount people')));
+    children.add(ListTile(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Check in by',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
+              DropdownButton<PersonCheckInForm>(
+                  value: _checkInBy,
+                  items: _personCheckInForm.values
+                      .map((form) => DropdownMenuItem<PersonCheckInForm>(
+                          value: form,
+                          child: Text(
+                              '${form.person.firstName} ${form.person.lastName}')))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _checkInBy = value;
+                    });
+                  }),
+            ],
+          ),
+          const Spacer(),
+          FilledButton(
+              onPressed: () {}, child: Text('Check in $checkedInCount people')),
+        ],
+      ),
+    ));
 
-    return ListView(children: children);
+    return ListView.separated(
+        itemBuilder: (context, index) => children[index],
+        separatorBuilder: (context, index) => SizedBox(
+              height: 10,
+            ),
+        itemCount: children.length);
   }
 }

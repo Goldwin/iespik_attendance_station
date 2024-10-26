@@ -17,7 +17,9 @@ class StubChurchEventQueriesImpl implements ChurchEventQueries {
           endDate: DateTime.now().add(Duration(hours: 3)),
           activities: [
             ChurchEventActivity(
-                id: "1", name: "Adult Service", time: DateTime.now())
+                id: "1", name: "Adult Service", time: DateTime.now()),
+            ChurchEventActivity(
+                id: "2", name: "Sunday School", time: DateTime.now()),
           ]),
       ChurchEvent(
           id: "2",
