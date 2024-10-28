@@ -16,25 +16,25 @@ class EventSelectionScreen extends StatefulWidget {
 }
 
 class _EventSelectionScreenState extends State<EventSelectionScreen> {
-  bool isLoaded = false;
+  bool _isLoading = true;
   List<ChurchEventSchedule> _eventList = [];
 
-  Future<void> _fetchTodayEvent() async {
+  Future<void> _fetchAvailableEventSchedules() async {
     widget._attendanceComponent
         .getChurchEventScheduleQueries()
         .listSchedules()
         .then((value) {
       setState(() {
         _eventList = value;
-        isLoaded = true;
+        _isLoading = false;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!isLoaded) {
-      _fetchTodayEvent();
+    if (_isLoading) {
+      _fetchAvailableEventSchedules();
     }
     return Scaffold(
       appBar: AppBar(
@@ -47,25 +47,31 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
       ),
       drawer: StationDrawer(),
       body: DoubleBackQuit(
-        child: RefreshIndicator(
-          onRefresh: _fetchTodayEvent,
-          child: ListView.builder(
-              itemCount: _eventList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Icon(Icons.event),
-                  title: Text(_eventList[index].name),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CheckInScreen(
-                                _eventList[index],
-                                widget._attendanceComponent)));
-                  },
-                );
-              }),
-        ),
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                },
+                child: ListView.builder(
+                    itemCount: _eventList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Icon(Icons.event),
+                        title: Text(_eventList[index].name),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CheckInScreen(
+                                      _eventList[index],
+                                      widget._attendanceComponent)));
+                        },
+                      );
+                    }),
+              ),
       ),
     );
   }
