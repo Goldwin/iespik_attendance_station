@@ -24,4 +24,20 @@ class Person {
     this.maritalStatus,
     this.anniversary,
   });
+
+  factory Person.fromJson(Map<String, dynamic> json) {
+    return Person(
+      id: json['id'],
+      firstName: json['firstName'],
+      middleName: json['middleName'],
+      lastName: json['lastName'],
+      profilePictureUrl: json['profilePictureUrl'],
+      emailAddress: json['emailAddress'],
+      phoneNumber: json['phoneNumber'],
+      maritalStatus: json['maritalStatus'],
+      birthday: json['birthday'],
+      gender: json['gender'],
+      anniversary: json['anniversary'],
+    );
+  }
 }
