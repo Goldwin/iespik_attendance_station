@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iespik_attendance_station/commons/auth.dart';
 
 class StationDrawer extends StatelessWidget {
   const StationDrawer({super.key});
@@ -65,6 +66,20 @@ class StationDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.popAndPushNamed(context, '/printer_config');
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                Icon(Icons.logout),
+                SizedBox(width: 5),
+                Text('Logout')
+              ],
+            ),
+            onTap: () {
+              removeToken().then((_) {
+                Navigator.pop(context);
+              });
             },
           ),
         ],

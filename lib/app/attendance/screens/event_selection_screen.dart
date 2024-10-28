@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iespik_attendance_station/app/attendance/domain/attendance_component.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event_schedule.dart';
 import 'package:iespik_attendance_station/app/attendance/index.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/station_drawer.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/station_leading.dart';
@@ -17,12 +17,12 @@ class EventSelectionScreen extends StatefulWidget {
 
 class _EventSelectionScreenState extends State<EventSelectionScreen> {
   bool isLoaded = false;
-  List<ChurchEvent> _eventList = [];
+  List<ChurchEventSchedule> _eventList = [];
 
   Future<void> _fetchTodayEvent() async {
     widget._attendanceComponent
-        .getChurchEventQueries()
-        .listActiveEvents()
+        .getChurchEventScheduleQueries()
+        .listSchedules()
         .then((value) {
       setState(() {
         _eventList = value;
