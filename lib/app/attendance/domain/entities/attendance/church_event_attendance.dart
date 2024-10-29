@@ -31,7 +31,7 @@ class ChurchEventAttendance {
         event: ChurchEvent.fromJson(json['event']),
         activity: ChurchEventActivity.fromJson(json['activity']),
         attendee: ChurchEventAttendee.fromJson(json['attendee']),
-        checkinBy: ChurchEventAttendee.fromJson(json['checkinBy']),
+        checkinBy: ChurchEventAttendee.fromJson(json['checkedInBy']),
         securityCode: json['securityCode'],
         securityNumber: json['securityNumber'],
         checkinTime: DateTime.parse(json['checkinTime']),

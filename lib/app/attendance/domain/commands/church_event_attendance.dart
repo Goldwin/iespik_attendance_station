@@ -9,6 +9,22 @@ class AttendeeData {
       {required this.personId,
       required this.eventActivityId,
       required this.attendanceType});
+
+  factory AttendeeData.fromJson(Map<String, dynamic> json) {
+    return AttendeeData(
+      personId: json['personId'],
+      eventActivityId: json['eventActivityId'],
+      attendanceType: json['attendanceType'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['personId'] = personId;
+    data['eventActivityId'] = eventActivityId;
+    data['attendanceType'] = attendanceType;
+    return data;
+  }
 }
 
 abstract class ChurchEventAttendanceCommands {
@@ -16,5 +32,5 @@ abstract class ChurchEventAttendanceCommands {
       {required String scheduleId,
       required String eventId,
       required List<AttendeeData> attendees,
-      required String checkInBy});
+      required String checkedInBy});
 }

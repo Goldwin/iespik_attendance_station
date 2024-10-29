@@ -70,15 +70,16 @@ class AttendanceService {
       {required String scheduleId,
       required String eventId,
       required List<AttendeeData> data,
-      required String checkinBy}) async {
+      required String checkedInBy}) async {
     final token = await getToken();
     final response = await post(
-      Uri.parse('$attendanceServiceUrl/schedules/$scheduleId/events/$eventId'),
-      body: {
+      Uri.parse(
+          '$attendanceServiceUrl/schedules/$scheduleId/events/$eventId/checkin'),
+      body: jsonEncode({
         "eventId": eventId,
-        "checkinBy": checkinBy,
-        "attendeeData": jsonEncode(data),
-      },
+        "checkedInBy": checkedInBy,
+        "attendees": data,
+      }),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token'

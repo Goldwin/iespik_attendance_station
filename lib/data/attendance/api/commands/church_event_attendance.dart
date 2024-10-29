@@ -13,11 +13,11 @@ class APIChurchEventAttendanceCommandsImpl
       {required String scheduleId,
       required String eventId,
       required List<AttendeeData> attendees,
-      required String checkInBy}) async {
+      required String checkedInBy}) async {
     return _attendanceService.checkin(
         scheduleId: scheduleId,
         eventId: eventId,
         data: attendees,
-        checkinBy: checkInBy);
+        checkedInBy: checkedInBy);
   }
 }
