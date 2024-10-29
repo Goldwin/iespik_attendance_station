@@ -14,7 +14,8 @@ class APIChurchEventQueriesImpl implements ChurchEventQueries {
     }
 
     date = (date ?? DateTime.now());
-    String eventId = '$id.${date.year}.${date.month}.${date.day}';
+    String eventId =
+        '$id.${date.year}${date.month.toString().padLeft(2, '0')}${date.day.toString().padLeft(2, '0')}';
 
     return _attendanceService.getEvent(scheduleId: id, eventId: eventId);
   }

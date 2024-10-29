@@ -17,7 +17,7 @@ class ChurchEvent {
       required this.activities});
 
   factory ChurchEvent.fromJson(Map<String, dynamic> json) {
-    List<Map<String, dynamic>> jsonActivities = json['activities'];
+    List<dynamic> jsonActivities = json['activities'];
 
     List<ChurchEventActivity> activities = jsonActivities
         .map((activityJson) => ChurchEventActivity.fromJson(activityJson))
@@ -25,7 +25,7 @@ class ChurchEvent {
     return ChurchEvent(
         id: json['id'],
         name: json['name'],
-        eventScheduleId: json['eventScheduleId'],
+        eventScheduleId: json['scheduleId'],
         startDate: DateTime.parse(json['startDate']),
         endDate: DateTime.parse(json['endDate']),
         activities: activities);
