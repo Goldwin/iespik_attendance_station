@@ -68,7 +68,11 @@ class _CheckInScreenState extends State<CheckInScreen> {
       );
     } else {
       body = HouseholdCheckIn(
-          household: _selectedHousehold!, churchEvent: _activeChurchEvent!);
+        household: _selectedHousehold!,
+        churchEvent: _activeChurchEvent!,
+        churchAttendanceCommand:
+            widget._attendanceComponent.getChurchEventAttendanceCommands(),
+      );
     }
 
     return Scaffold(

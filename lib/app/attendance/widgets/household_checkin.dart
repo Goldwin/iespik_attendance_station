@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iespik_attendance_station/app/attendance/domain/commands/church_event_attendance.dart';
 import 'package:iespik_attendance_station/app/attendance/domain/entities/people/household.dart';
 
 import '../domain/entities/events/church_event.dart';
@@ -8,9 +9,12 @@ import 'person_checkin_tile.dart';
 class HouseholdCheckIn extends StatefulWidget {
   final Household household;
   final ChurchEvent churchEvent;
+  final ChurchEventAttendanceCommands churchAttendanceCommand;
 
-  const HouseholdCheckIn(
-      {required this.churchEvent, required this.household, super.key});
+  const HouseholdCheckIn({required this.churchEvent,
+    required this.household,
+    required this.churchAttendanceCommand,
+    super.key});
 
   @override
   State<HouseholdCheckIn> createState() => _HouseholdCheckInState();
@@ -18,6 +22,7 @@ class HouseholdCheckIn extends StatefulWidget {
 
 class _HouseholdCheckInState extends State<HouseholdCheckIn> {
   final Map<String, PersonCheckInForm> _personCheckInForm = {};
+  bool _isLoading = false;
   PersonCheckInForm? _checkInBy;
 
   @override
@@ -87,7 +92,18 @@ class _HouseholdCheckInState extends State<HouseholdCheckIn> {
           ),
           const Spacer(),
           FilledButton(
-              onPressed: () {}, child: Text('Check in $checkedInCount people')),
+              onPressed: (checkedInCount > 0 && !_isLoading) ? _checkin : null,
+              child: Row(
+                children: [
+                  Text('Check in $checkedInCount people'),
+                  if (_isLoading) SizedBox(width: 10),
+                  if (_isLoading)
+                    SizedBox(
+                        width: 15,
+                        height: 15,
+                        child: CircularProgressIndicator()),
+                ],
+              )),
         ],
       ),
     ));
@@ -98,5 +114,11 @@ class _HouseholdCheckInState extends State<HouseholdCheckIn> {
               height: 10,
             ),
         itemCount: children.length);
+  }
+
+  void _checkin() {
+    setState(() {
+      _isLoading = true;
+    });
   }
 }
