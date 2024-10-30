@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:iespik_attendance_station/core/infra/printer/printer.dart';
-import 'package:iespik_attendance_station/core/infra/printer/printer_manager.dart';
+import 'package:iespik_attendance_station/core/domains/printer/index.dart';
 
 class PrinterList extends StatefulWidget {
-  const PrinterList({super.key});
+  final PrinterComponent printerComponent;
+  const PrinterList({required this.printerComponent, super.key});
 
   @override
   State<PrinterList> createState() => _PrinterListState();
@@ -17,7 +17,7 @@ class _PrinterListState extends State<PrinterList> {
   bool _isCurrentlyTesting = false;
 
   void _fetchPrinterList() {
-    printerManager.listPrinters().then((p) {
+    widget.printerComponent.getPrinterQueries().listPrinters().then((p) {
       setState(() {
         _printers = p;
         _isLoaded = true;
@@ -27,13 +27,12 @@ class _PrinterListState extends State<PrinterList> {
 
   @override
   Widget build(BuildContext context) {
-    _selectedPrinter = printerManager.getSelectedPrinter();
     if (!_isLoaded) {
-      printerManager.ping().then((pong) {
-        Fluttertoast.showToast(
-            msg: "Successfully Ping to device platform. ping response: $pong");
-
-        _fetchPrinterList();
+      _fetchPrinterList();
+      widget.printerComponent.getPrinterQueries().getSelectedPrinter().then((p) {
+        setState(() {
+          _selectedPrinter = p;
+        });
       });
     }
 
@@ -57,7 +56,9 @@ class _PrinterListState extends State<PrinterList> {
                               title: Text(p.model ?? "No Name"),
                               onTap: () {
                                 setState(() {
-                                  printerManager.selectPrinter(p);
+                                  widget.printerComponent.getPrinterCommands().selectPrinter(p).then((p) => setState(() {
+                                    _selectedPrinter = p;
+                                  }));
                                 });
                               },
                             ))
@@ -76,7 +77,7 @@ class _PrinterListState extends State<PrinterList> {
                       setState(() {
                         _isCurrentlyTesting = true;
                       });
-                      printerManager.testPrinter().then((result) {
+                      widget.printerComponent.getPrinterCommands().testPrint().then((result) {
                         setState(() {
                           _isCurrentlyTesting = false;
                         });

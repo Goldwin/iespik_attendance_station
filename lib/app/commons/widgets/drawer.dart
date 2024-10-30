@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/commons/auth.dart';
+import 'package:iespik_attendance_station/core/commons/auth.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

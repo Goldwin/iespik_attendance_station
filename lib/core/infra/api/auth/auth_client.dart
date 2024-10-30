@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:iespik_attendance_station/commons/auth.dart';
-import 'package:iespik_attendance_station/commons/response.dart';
+import 'package:iespik_attendance_station/core/commons/auth.dart';
+import 'package:iespik_attendance_station/core/commons/response.dart';
 
 const String authUrl = 'https://api.brightfellow.net/app';
 

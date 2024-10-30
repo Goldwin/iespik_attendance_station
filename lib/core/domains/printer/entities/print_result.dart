@@ -6,7 +6,7 @@ class PrintResult {
 
   PrintResult.failed(String message) : this(false, message);
 
-  factory PrintResult.fromMap(Map<dynamic, dynamic> map) {
+  factory PrintResult.fromJson(Map<dynamic, dynamic> map) {
     return PrintResult(map["success"] as bool, map["message"] as String?);
   }
 }

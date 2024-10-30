@@ -3,13 +3,16 @@ import 'package:iespik_attendance_station/core/domains/attendance/attendance_com
 import 'package:iespik_attendance_station/app/attendance/screens/event_selection_screen.dart';
 import 'package:iespik_attendance_station/app/printer/screens/printer_config_screen.dart';
 import 'package:iespik_attendance_station/app/login/index.dart';
-import 'package:iespik_attendance_station/commons/auth.dart';
+import 'package:iespik_attendance_station/core/commons/auth.dart';
+import 'package:iespik_attendance_station/core/domains/printer/index.dart';
+import 'package:iespik_attendance_station/core/infra/printer/printer_component.dart';
 
 import 'core/data/attendance/api/attendance_component.dart';
 
 void main() {
   AttendanceComponent attendanceComponent = AttendanceComponentImpl();
-  runApp(MyApp(attendanceComponent: attendanceComponent));
+  PrinterComponent printerComponent = PrinterComponentImpl();
+  runApp(MyApp(attendanceComponent: attendanceComponent, printerComponent: printerComponent));
 }
 
 FutureBuilder<bool> navGuard(Widget Function(BuildContext) screenBuilder) {
@@ -31,8 +34,9 @@ FutureBuilder<bool> navGuard(Widget Function(BuildContext) screenBuilder) {
 
 class MyApp extends StatelessWidget {
   final AttendanceComponent attendanceComponent;
+  final PrinterComponent printerComponent;
 
-  const MyApp({required this.attendanceComponent, super.key});
+  const MyApp({required this.printerComponent, required this.attendanceComponent, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class MyApp extends StatelessWidget {
               attendanceComponent,
             )),
         '/printer_config': (BuildContext context) =>
-            navGuard((ctx) => const PrinterConfigScreen()),
+            navGuard((ctx) => PrinterConfigScreen(printerComponent: printerComponent,)),
       },
     );
   }

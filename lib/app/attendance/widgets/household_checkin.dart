@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:iespik_attendance_station/commons/response.dart';
+import 'package:iespik_attendance_station/core/commons/response.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 import 'person_checkin_tile.dart';

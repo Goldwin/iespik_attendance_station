@@ -5,8 +5,8 @@ import '../../../domains/attendance/commands/church_event_attendance.dart';
 import '../../../domains/attendance/entities/attendance/church_event_attendance.dart';
 import '../../../domains/attendance/entities/events/church_event.dart';
 import '../../../domains/attendance/entities/events/church_event_schedule.dart';
-import 'package:iespik_attendance_station/commons/auth.dart';
-import 'package:iespik_attendance_station/commons/response.dart';
+import 'package:iespik_attendance_station/core/commons/auth.dart';
+import 'package:iespik_attendance_station/core/commons/response.dart';
 
 class AttendanceService {
   final String attendanceServiceUrl = 'https://api.brightfellow.net/attendance';

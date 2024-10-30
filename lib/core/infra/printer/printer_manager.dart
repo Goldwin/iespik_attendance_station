@@ -4,30 +4,29 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'print_result.dart';
-import 'printer.dart';
+import '../../domains/printer/commands/printer_commands.dart';
+import '../../domains/printer/entities/print_result.dart';
+import '../../domains/printer/entities/printer.dart';
+import '../../domains/printer/queries/printer_queries.dart';
 
-class PrinterManager {
-  static final PrinterManager _instance = PrinterManager._internal();
+class PrinterManager implements PrinterQueries, PrinterCommands {
   Printer? _selectedPrinter;
 
   final MethodChannel _channel =
       MethodChannel('org.iespik.printer.PrinterManager');
 
-  PrinterManager._internal();
-
-  factory PrinterManager() => _instance;
-
+  @override
   Future<List<Printer>> listPrinters() async {
     List<Map<dynamic, dynamic>>? printers =
         await _channel.invokeListMethod("listPrinters");
     if (printers != null) {
-      return printers.map((p) => Printer.fromMap(p)).toList();
+      return printers.map((p) => Printer.fromJson(p)).toList();
     }
 
     return [];
   }
 
+  @override
   Future<PrintResult> print(Image img) async {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
@@ -47,7 +46,7 @@ class PrinterManager {
     });
 
     if (result != null) {
-      return PrintResult.fromMap(result);
+      return PrintResult.fromJson(result);
     }
 
     return PrintResult.failed("Failed to connect to printer");
@@ -57,15 +56,13 @@ class PrinterManager {
     return await _channel.invokeMethod("ping") as String;
   }
 
-  void selectPrinter(Printer printer) {
-    _selectedPrinter = printer;
-  }
-
-  Printer? getSelectedPrinter() {
+  @override
+  Future<Printer?> getSelectedPrinter() async {
     return _selectedPrinter;
   }
 
-  Future<PrintResult> testPrinter() async {
+  @override
+  Future<PrintResult> testPrint() async {
     File file = await _getTestLabelFile();
 
     Map<dynamic, dynamic>? result = await _channel.invokeMapMethod("print", {
@@ -74,7 +71,7 @@ class PrinterManager {
     });
 
     if (result != null) {
-      return PrintResult.fromMap(result);
+      return PrintResult.fromJson(result);
     }
 
     return PrintResult.failed("Failed to connect to printer");
@@ -89,6 +86,11 @@ class PrinterManager {
     return File(filePath).writeAsBytes(
         buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
   }
-}
 
-PrinterManager printerManager = PrinterManager();
+  @override
+  Future<Printer> selectPrinter(Printer printer) async {
+    _selectedPrinter = printer;
+    return printer;
+  }
+
+}
