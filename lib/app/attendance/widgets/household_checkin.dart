@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/commands/church_event_attendance.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/people/household.dart';
 import 'package:iespik_attendance_station/commons/response.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
-import '../domain/entities/events/church_event.dart';
-import '../domain/entities/people/person.dart';
 import 'person_checkin_tile.dart';
 
 class HouseholdCheckIn extends StatefulWidget {

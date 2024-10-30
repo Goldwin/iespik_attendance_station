@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_image_object.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 void paintLabelImage(LabelImageObject image, Canvas canvas, Size size) {
   Paint paint = Paint();

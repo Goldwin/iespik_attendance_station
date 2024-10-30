@@ -1,11 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import '../domain/entities/events/church_event_activity.dart';
-import '../domain/entities/people/household.dart';
-import '../domain/entities/people/person.dart';
-import '../domain/queries/household_queries.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 typedef OnHouseholdSelected = void Function(Household household);
 typedef OnActivityChanged = void Function(ChurchEventActivity activity);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_text_object.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 void paintText(
     LabelTextObject text, Map<String, dynamic> data, Canvas canvas, Size size) {

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event_activity.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/household_finder.dart';
-
-import '../domain/entities/events/church_event.dart';
-import '../domain/entities/people/person.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 class PersonCheckInForm {
   final Person person;

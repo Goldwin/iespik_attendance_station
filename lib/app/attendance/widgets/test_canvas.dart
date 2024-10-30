@@ -2,10 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/queries/label_queries.dart';
 import 'package:iespik_attendance_station/app/attendance/utilities/label/label_painter.dart';
-import 'package:iespik_attendance_station/infra/printer/printer_manager.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
+import 'package:iespik_attendance_station/core/infra/printer/printer_manager.dart';
 
 class TestCanvas extends StatefulWidget {
   const TestCanvas({super.key});

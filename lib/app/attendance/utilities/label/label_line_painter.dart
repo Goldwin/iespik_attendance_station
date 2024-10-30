@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_line_object.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 void paintLine(LabelLineObject line, Canvas canvas, Size size) {
   Paint paint = Paint();

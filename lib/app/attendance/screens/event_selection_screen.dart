@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/attendance_component.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/events/church_event_schedule.dart';
 import 'package:iespik_attendance_station/app/attendance/index.dart';
-import 'package:iespik_attendance_station/app/attendance/widgets/station_drawer.dart';
-import 'package:iespik_attendance_station/app/attendance/widgets/station_leading.dart';
 import 'package:iespik_attendance_station/app/commons/double_back_pop_scope.dart';
+import 'package:iespik_attendance_station/app/commons/screens/screen_template.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 class EventSelectionScreen extends StatefulWidget {
   final AttendanceComponent _attendanceComponent;
@@ -36,43 +34,33 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
     if (_isLoading) {
       _fetchAvailableEventSchedules();
     }
-    return Scaffold(
-      appBar: AppBar(
-        leading: StationLeading(),
-        title: Row(
-          children: [
-            const Text('Select Active Event'),
-          ],
-        ),
-      ),
-      drawer: StationDrawer(),
-      body: DoubleBackQuit(
-        child: _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : RefreshIndicator(
-                onRefresh: () async {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                },
-                child: ListView.builder(
-                    itemCount: _eventList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Icon(Icons.event),
-                        title: Text(_eventList[index].name),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CheckInScreen(
-                                      _eventList[index],
-                                      widget._attendanceComponent)));
-                        },
-                      );
-                    }),
-              ),
-      ),
-    );
+    return ScreenTemplate(
+        body: DoubleBackQuit(
+      child: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+              onRefresh: () async {
+                setState(() {
+                  _isLoading = true;
+                });
+              },
+              child: ListView.builder(
+                  itemCount: _eventList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.event),
+                      title: Text(_eventList[index].name),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CheckInScreen(
+                                    _eventList[index],
+                                    widget._attendanceComponent)));
+                      },
+                    );
+                  }),
+            ),
+    ));
   }
 }

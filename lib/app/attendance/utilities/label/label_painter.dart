@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_image_object.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_line_object.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/entities/label/label_object.dart';
 import 'package:iespik_attendance_station/app/attendance/utilities/label/label_image_painter.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
-import '../../domain/entities/label/label_text_object.dart';
 import 'label_line_painter.dart';
 import 'label_text_painter.dart';
 

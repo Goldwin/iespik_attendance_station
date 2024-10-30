@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/attendance_component.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/attendance_component.dart';
 import 'package:iespik_attendance_station/app/attendance/screens/event_selection_screen.dart';
-import 'package:iespik_attendance_station/app/attendance/screens/printer_config_screen.dart';
+import 'package:iespik_attendance_station/app/printer/screens/printer_config_screen.dart';
 import 'package:iespik_attendance_station/app/login/index.dart';
 import 'package:iespik_attendance_station/commons/auth.dart';
 
-import 'data/attendance/api/attendance_component.dart';
+import 'core/data/attendance/api/attendance_component.dart';
 
 void main() {
   AttendanceComponent attendanceComponent = AttendanceComponentImpl();

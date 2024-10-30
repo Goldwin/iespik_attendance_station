@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/domain/attendance_component.dart';
+import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/household_checkin.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/household_finder.dart';
-
-import '../domain/entities/events/church_event.dart';
-import '../domain/entities/events/church_event_schedule.dart';
-import '../domain/entities/people/household.dart';
 
 class CheckInScreen extends StatefulWidget {
   final ChurchEventSchedule _churchEventSchedule;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iespik_attendance_station/commons/response.dart';
-import 'package:iespik_attendance_station/infra/api/auth/auth_client.dart';
+import 'package:iespik_attendance_station/core/infra/api/auth/auth_client.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
