@@ -17,7 +17,7 @@ class _PrinterConfigScreenState extends State<PrinterConfigScreen> {
   @override
   Widget build(BuildContext context) {
     _requestPermission();
-    return ScreenTemplate(body: DoubleBackQuit(child: PrinterList(printerComponent: widget.printerComponent,)));
+    return ScreenTemplate(body: DoubleBackQuit(child: PrinterList(printerComponent: widget.printerComponent)),title: 'Printer List');
   }
 
   Future<void> _requestPermission() async {

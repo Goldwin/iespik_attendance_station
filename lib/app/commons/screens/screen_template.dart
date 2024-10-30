@@ -5,8 +5,9 @@ import '../widgets/drawer.dart';
 
 class ScreenTemplate extends StatelessWidget {
   final Widget body;
+  final String title;
 
-  const ScreenTemplate({required this.body, super.key});
+  const ScreenTemplate({required this.body, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ScreenTemplate extends StatelessWidget {
           leading: AppBarLeading(),
           title: Row(
             children: [
-              const Text('Select Active Event'),
+              Text(title),
             ],
           ),
         ),

@@ -35,6 +35,7 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
       _fetchAvailableEventSchedules();
     }
     return ScreenTemplate(
+      title: 'Select Event',
         body: DoubleBackQuit(
       child: _isLoading
           ? Center(child: CircularProgressIndicator())

@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domains/printer/commands/printer_commands.dart';
 import '../../domains/printer/entities/print_result.dart';
@@ -58,6 +60,13 @@ class PrinterManager implements PrinterQueries, PrinterCommands {
 
   @override
   Future<Printer?> getSelectedPrinter() async {
+    if (_selectedPrinter == null) {
+      var pref = await SharedPreferences.getInstance();
+      String? json = pref.getString('selectedPrinter');
+      if (json != null) {
+        _selectedPrinter = Printer.fromJson(jsonDecode(json));
+      }
+    }
     return _selectedPrinter;
   }
 
@@ -89,7 +98,9 @@ class PrinterManager implements PrinterQueries, PrinterCommands {
 
   @override
   Future<Printer> selectPrinter(Printer printer) async {
+    var pref = await SharedPreferences.getInstance();
     _selectedPrinter = printer;
+    pref.setString('selectedPrinter', jsonEncode(printer));
     return printer;
   }
 
