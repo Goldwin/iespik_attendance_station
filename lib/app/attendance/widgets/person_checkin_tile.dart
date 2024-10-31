@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:iespik_attendance_station/app/attendance/widgets/household_finder.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
-class PersonCheckInForm {
+class PersonCheckInFormData {
   final Person person;
   ChurchEventActivity activity;
 
   bool isCheckedIn;
   bool isVolunteer;
 
-  PersonCheckInForm({
+  PersonCheckInFormData({
     required this.person,
     required this.activity,
     this.isCheckedIn = false,
@@ -21,8 +20,10 @@ typedef OnSelectionChanged = void Function(bool checked);
 
 typedef OnVolunteerStatusChanged = void Function(bool volunteer);
 
+typedef OnActivityChanged = void Function(ChurchEventActivity activity);
+
 class PersonCheckInTile extends StatefulWidget {
-  final PersonCheckInForm form;
+  final PersonCheckInFormData form;
   final ChurchEvent churchEvent;
   final OnSelectionChanged onSelectionChanged;
   final OnActivityChanged onActivityChanged;

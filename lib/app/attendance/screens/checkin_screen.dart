@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iespik_attendance_station/app/attendance/widgets/household_checkin_form.dart';
+import 'package:iespik_attendance_station/app/people/widgets/household_finder.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
-import 'package:iespik_attendance_station/app/attendance/widgets/household_checkin.dart';
-import 'package:iespik_attendance_station/app/attendance/widgets/household_finder.dart';
 
 class CheckInScreen extends StatefulWidget {
   final ChurchEventSchedule _churchEventSchedule;
@@ -63,7 +63,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
         },
       );
     } else {
-      body = HouseholdCheckIn(
+      body = HouseholdCheckInForm(
         household: _selectedHousehold!,
         churchEvent: _activeChurchEvent!,
         churchAttendanceCommand:

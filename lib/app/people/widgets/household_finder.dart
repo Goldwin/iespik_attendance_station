@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 typedef OnHouseholdSelected = void Function(Household household);
-typedef OnActivityChanged = void Function(ChurchEventActivity activity);
 
 class HouseholdFinder extends StatefulWidget {
   final HouseholdQueries _householdQueries;

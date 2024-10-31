@@ -1,0 +1,1 @@
+enum AddPersonMode { newHousehold, existingHousehold }

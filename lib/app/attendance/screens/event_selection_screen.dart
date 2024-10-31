@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iespik_attendance_station/app/attendance/index.dart';
-import 'package:iespik_attendance_station/app/commons/double_back_pop_scope.dart';
 import 'package:iespik_attendance_station/app/commons/screens/screen_template.dart';
+import 'package:iespik_attendance_station/app/commons/widgets/double_back_pop_scope.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 class EventSelectionScreen extends StatefulWidget {

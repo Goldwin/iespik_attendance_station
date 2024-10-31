@@ -5,35 +5,35 @@ import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 
 import 'person_checkin_tile.dart';
 
-class HouseholdCheckIn extends StatefulWidget {
+class HouseholdCheckInForm extends StatefulWidget {
   final Household household;
   final ChurchEvent churchEvent;
   final ChurchEventAttendanceCommands churchAttendanceCommand;
 
-  const HouseholdCheckIn(
+  const HouseholdCheckInForm(
       {required this.churchEvent,
       required this.household,
       required this.churchAttendanceCommand,
       super.key});
 
   @override
-  State<HouseholdCheckIn> createState() => _HouseholdCheckInState();
+  State<HouseholdCheckInForm> createState() => _HouseholdCheckInFormState();
 }
 
-class _HouseholdCheckInState extends State<HouseholdCheckIn> {
-  final Map<String, PersonCheckInForm> _personCheckInForm = {};
+class _HouseholdCheckInFormState extends State<HouseholdCheckInForm> {
+  final Map<String, PersonCheckInFormData> _personCheckInForm = {};
   bool _isLoading = false;
-  PersonCheckInForm? _checkInBy;
+  PersonCheckInFormData? _checkInBy;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     if (_personCheckInForm.isEmpty) {
-      _personCheckInForm[widget.household.head.id] = PersonCheckInForm(
+      _personCheckInForm[widget.household.head.id] = PersonCheckInFormData(
           person: widget.household.head,
           activity: widget.churchEvent.activities.first);
       for (Person person in widget.household.members) {
-        _personCheckInForm[person.id] = PersonCheckInForm(
+        _personCheckInForm[person.id] = PersonCheckInFormData(
             person: person, activity: widget.churchEvent.activities.first);
       }
 
@@ -42,7 +42,7 @@ class _HouseholdCheckInState extends State<HouseholdCheckIn> {
 
     List<Widget> children = [];
     int checkedInCount = 0;
-    for (PersonCheckInForm form in _personCheckInForm.values) {
+    for (PersonCheckInFormData form in _personCheckInForm.values) {
       if (form.isCheckedIn) {
         checkedInCount++;
       }
@@ -90,10 +90,10 @@ class _HouseholdCheckInState extends State<HouseholdCheckIn> {
           children: [
             const Text('Check in by',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
-            DropdownButton<PersonCheckInForm>(
+            DropdownButton<PersonCheckInFormData>(
                 value: _checkInBy,
                 items: _personCheckInForm.values
-                    .map((form) => DropdownMenuItem<PersonCheckInForm>(
+                    .map((form) => DropdownMenuItem<PersonCheckInFormData>(
                         value: form,
                         child: Text(
                             '${form.person.firstName} ${form.person.lastName}')))
@@ -135,10 +135,10 @@ class _HouseholdCheckInState extends State<HouseholdCheckIn> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
           SizedBox(
             width: double.infinity,
-            child: DropdownButton<PersonCheckInForm>(
+            child: DropdownButton<PersonCheckInFormData>(
                 value: _checkInBy,
                 items: _personCheckInForm.values
-                    .map((form) => DropdownMenuItem<PersonCheckInForm>(
+                    .map((form) => DropdownMenuItem<PersonCheckInFormData>(
                         value: form,
                         child: Text(
                             '${form.person.firstName} ${form.person.lastName}')))
