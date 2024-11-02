@@ -1,9 +1,7 @@
-
-
-import '../../../../domains/attendance/entities/people/household.dart';
-import '../../../../domains/attendance/entities/people/person.dart';
-import '../../../../domains/attendance/queries/household_queries.dart';
-import '../../../../infra/api/people/people_client.dart';
+import '../../../domains/attendance/entities/people/household.dart';
+import '../../../domains/attendance/entities/people/person.dart';
+import '../../../domains/people/queries/household_queries.dart';
+import '../../../infra/api/people/people_client.dart';
 
 class HouseholdQueriesImpl extends HouseholdQueries {
   final PeopleService _peopleService;

@@ -6,14 +6,19 @@ import '../widgets/drawer.dart';
 class ScreenTemplate extends StatelessWidget {
   final Widget body;
   final String title;
+  final Widget leading;
 
-  const ScreenTemplate({required this.body, required this.title, super.key});
+  const ScreenTemplate(
+      {required this.body,
+      required this.title,
+      this.leading = const AppBarLeading(),
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: AppBarLeading(),
+          leading: leading,
           title: Row(
             children: [
               Text(title),

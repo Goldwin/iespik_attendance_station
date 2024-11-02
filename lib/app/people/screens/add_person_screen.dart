@@ -7,11 +7,12 @@ import 'package:iespik_attendance_station/app/people/widgets/add_person_mode_pic
 import 'package:iespik_attendance_station/app/people/widgets/create_household_form.dart';
 import 'package:iespik_attendance_station/app/people/widgets/household_finder.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
+import 'package:iespik_attendance_station/core/domains/people/people_component.dart';
 
 class AddPersonScreen extends StatefulWidget {
-  final HouseholdQueries householdQueries;
+  final PeopleComponent peopleComponent;
 
-  const AddPersonScreen({required this.householdQueries, super.key});
+  const AddPersonScreen({required this.peopleComponent, super.key});
 
   @override
   State<AddPersonScreen> createState() => _AddPersonScreenState();
@@ -43,7 +44,7 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
       case AddPersonScreenStage.createHousehold:
         body = CreateHouseholdForm();
       case AddPersonScreenStage.searchExistingHousehold:
-        body = HouseholdFinder(widget.householdQueries,
+        body = HouseholdFinder(widget.peopleComponent.getHouseholdQueries(),
             onHouseholdSelected: (household) {
           setState(() {
             _stage = AddPersonScreenStage.registerNewPerson;
@@ -53,6 +54,14 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
       case AddPersonScreenStage.registerNewPerson:
         body = AddPersonForm();
     }
-    return ScreenTemplate(body: body, title: 'Add Person');
+    return ScreenTemplate(
+      body: body,
+      title: 'Add Person',
+      leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back)),
+    );
   }
 }

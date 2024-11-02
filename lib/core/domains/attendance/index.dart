@@ -1,3 +1,4 @@
+export '../people/queries/household_queries.dart';
 export 'attendance_component.dart';
 export 'commands/church_event_attendance.dart';
 export 'entities/attendance/church_event_attendance.dart';
@@ -14,5 +15,4 @@ export 'entities/people/household.dart';
 export 'entities/people/person.dart';
 export 'queries/event_queries.dart';
 export 'queries/event_schedule_queries.dart';
-export 'queries/household_queries.dart';
 export 'queries/label_queries.dart';

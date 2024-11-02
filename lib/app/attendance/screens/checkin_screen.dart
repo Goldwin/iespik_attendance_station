@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/household_checkin_form.dart';
 import 'package:iespik_attendance_station/app/people/widgets/household_finder.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
+import 'package:iespik_attendance_station/core/domains/people/people_component.dart';
 
 class CheckInScreen extends StatefulWidget {
   final ChurchEventSchedule _churchEventSchedule;
   final AttendanceComponent _attendanceComponent;
+  final PeopleComponent peopleComponent;
 
   const CheckInScreen(this._churchEventSchedule, this._attendanceComponent,
+      this.peopleComponent,
       {super.key});
 
   @override
@@ -25,6 +28,11 @@ class _CheckInScreenState extends State<CheckInScreen> {
     setState(() {
       _selectedHousehold = null;
     });
+  }
+
+  void addPerson() {
+    debugPrint('Push Person Here');
+    Navigator.pushNamed(context, '/add_person');
   }
 
   @override
@@ -54,7 +62,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
       body = NoActiveEventBody(widget._churchEventSchedule);
     } else if (_selectedHousehold == null) {
       body = HouseholdFinder(
-        widget._attendanceComponent.getHouseholdQueries(),
+        widget.peopleComponent.getHouseholdQueries(),
         onHouseholdSelected: (household) {
           debugPrint('selected household: ${household.name}');
           setState(() {
@@ -91,12 +99,9 @@ class _CheckInScreenState extends State<CheckInScreen> {
                     ));
           }),
           Builder(builder: (context) {
-            final addPerson = () {};
             return width < 600
                 ? IconButton(
-                    onPressed: () {
-                      //Add Person
-                    },
+                    onPressed: addPerson,
                     icon: const Icon(Icons.person_add_alt_1))
                 : TextButton(
                     onPressed: addPerson,

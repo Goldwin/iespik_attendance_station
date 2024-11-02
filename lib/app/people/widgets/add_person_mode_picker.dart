@@ -11,6 +11,17 @@ class AddPersonModePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        ListTile(
+          title: const Text('Create New Household'),
+          onTap: () => onModeSelected(AddPersonMode.newHousehold),
+        ),
+        ListTile(
+          title: const Text('Search Existing Household'),
+          onTap: () => onModeSelected(AddPersonMode.existingHousehold),
+        ),
+      ],
+    );
   }
 }
