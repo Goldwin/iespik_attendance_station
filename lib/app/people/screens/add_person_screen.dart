@@ -42,7 +42,12 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
           }
         });
       case AddPersonScreenStage.createHousehold:
-        body = CreateHouseholdForm();
+        body = CreateHouseholdForm(onHouseholdCreated: (household) {
+          setState(() {
+            _stage = AddPersonScreenStage.registerNewPerson;
+            selectedHousehold = household;
+          });
+        });
       case AddPersonScreenStage.searchExistingHousehold:
         body = HouseholdFinder(widget.peopleComponent.getHouseholdQueries(),
             onHouseholdSelected: (household) {
@@ -56,7 +61,7 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
     }
     return ScreenTemplate(
       body: body,
-      title: 'Add Person',
+      title: _stage.title,
       leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
