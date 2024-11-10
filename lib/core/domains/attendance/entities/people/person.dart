@@ -5,6 +5,7 @@ class Person {
   final String lastName;
   final String? profilePictureUrl;
   final String? emailAddress;
+  final String? address;
   final String? phoneNumber;
   final String? maritalStatus;
   final String? birthday;
@@ -23,7 +24,7 @@ class Person {
     this.phoneNumber,
     this.maritalStatus,
     this.anniversary,
-  });
+      this.address});
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(

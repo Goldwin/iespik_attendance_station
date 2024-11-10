@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iespik_attendance_station/app/commons/screens/screen_template.dart';
 import 'package:iespik_attendance_station/app/people/utilities/add_person_mode.dart';
 import 'package:iespik_attendance_station/app/people/utilities/add_person_screen_stage.dart';
@@ -57,7 +58,13 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
           });
         });
       case AddPersonScreenStage.registerNewPerson:
-        body = AddPersonForm();
+        body = AddPersonForm(
+          onSubmit: (Person person) {
+            debugPrint('person: ${person.firstName}');
+            Fluttertoast.showToast(msg: 'Person added successfully');
+            Navigator.pop(context);
+          },
+        );
     }
     return ScreenTemplate(
       body: body,
