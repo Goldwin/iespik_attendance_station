@@ -64,7 +64,6 @@ class _CheckInScreenState extends State<CheckInScreen> {
       body = HouseholdFinder(
         widget.peopleComponent.getHouseholdQueries(),
         onHouseholdSelected: (household) {
-          debugPrint('selected household: ${household.name}');
           setState(() {
             _selectedHousehold = household;
           });
@@ -117,17 +116,10 @@ class _CheckInScreenState extends State<CheckInScreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
-              left: width < 600 ? 10 : 50.0, right: width < 600 ? 10 : 50.0),
-          child: RefreshIndicator(
-              onRefresh: () async {
-                setState(() {
-                  _isLoading = true;
-                  _activeChurchEvent = null;
-                });
-              },
-              child: CustomScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  slivers: <Widget>[SliverFillRemaining(child: body)])),
+              left: width < 600 ? 20 : 50.0,
+              right: width < 600 ? 20 : 50.0,
+              top: 20.0),
+          child: body,
         ),
       ),
     );

@@ -30,69 +30,69 @@ class _HouseholdFinderState extends State<HouseholdFinder> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: Center(
-        child: Autocomplete<Household>(
-          onSelected: widget.onHouseholdSelected,
-          fieldViewBuilder:
-              (context, textEditingController, focusNode, onFieldSubmitted) {
-            return TextField(
-              controller: textEditingController,
-              focusNode: focusNode,
-              decoration: const InputDecoration(
-                  hintText: 'Search by name',
-                  label: Text('Select Household'),
-                  alignLabelWithHint: true),
-            );
-          },
-          optionsBuilder: (value) async {
-            if (_debounceTimer?.isActive ?? false) {
-              _debounceTimer?.cancel();
-            }
+    final width = MediaQuery.of(context).size.width;
+    return Autocomplete<Household>(
+      onSelected: widget.onHouseholdSelected,
+      fieldViewBuilder:
+          (context, textEditingController, focusNode, onFieldSubmitted) {
+        return TextField(
+          controller: textEditingController,
+          focusNode: focusNode,
+          decoration: const InputDecoration(
+              hintText: 'Search by name',
+              label: Text('Select Household'),
+              alignLabelWithHint: true),
+        );
+      },
+      optionsBuilder: (value) async {
+        if (_debounceTimer?.isActive ?? false) {
+          _debounceTimer?.cancel();
+        }
 
-            Completer<void> completer = Completer();
+        Completer<void> completer = Completer();
 
-            _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-              completer.complete();
-            });
-            try {
-              await completer.future;
-            } catch (e) {
-              return const Iterable<Household>.empty();
-            }
+        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+          completer.complete();
+        });
+        try {
+          await completer.future;
+        } catch (e) {
+          return const Iterable<Household>.empty();
+        }
 
-            if (value.text.isEmpty || value.text.length < 3) {
-              return const Iterable<Household>.empty();
-            }
-            return await widget._householdQueries
-                .listHouseholds(name: value.text);
-          },
-          optionsViewBuilder: (context, onSelected, options) {
-            return Card(
-              child: ListView.builder(
-                itemCount: options.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('${options.elementAt(index).name} Household',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(
-                            _getHouseholdMemberNames(options.elementAt(index))),
-                      ],
-                    ),
-                    onTap: () {
-                      onSelected(options.elementAt(index));
-                    },
-                  );
-                },
-              ),
-            );
-          },
-        ),
-      ),
+        if (value.text.isEmpty || value.text.length < 3) {
+          return const Iterable<Household>.empty();
+        }
+        return await widget._householdQueries.listHouseholds(name: value.text);
+      },
+      optionsViewBuilder: (context, onSelected, options) {
+        return Align(
+          alignment: Alignment.topLeft,
+          child: SizedBox(
+            width: width - 20,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: options.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  tileColor: Theme.of(context).colorScheme.surfaceBright,
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${options.elementAt(index).name} Household',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(_getHouseholdMemberNames(options.elementAt(index))),
+                    ],
+                  ),
+                  onTap: () {
+                    onSelected(options.elementAt(index));
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
