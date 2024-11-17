@@ -166,6 +166,12 @@ class _HouseholdCheckInFormState extends State<HouseholdCheckInForm> {
     ]);
   }
 
+  void _printLabel(ChurchEventAttendance attendance) {
+    for (final labelId in attendance.event.labels) {
+      getLabel(labelId).then((label) {}).onError((error, stackTrace) {});
+    }
+  }
+
   void _checkin() {
     final scheduleId = widget.churchEvent.eventScheduleId;
     final eventId = widget.churchEvent.id;
@@ -177,7 +183,6 @@ class _HouseholdCheckInFormState extends State<HouseholdCheckInForm> {
             attendanceType: form.isVolunteer ? "Volunteer" : "Regular"))
         .toList();
     final checkInBy = _checkInBy!.person.id;
-    debugPrint('checkin $scheduleId $eventId $attendees $checkInBy');
     setState(() {
       _isLoading = true;
     });
@@ -188,13 +193,17 @@ class _HouseholdCheckInFormState extends State<HouseholdCheckInForm> {
             attendees: attendees,
             checkedInBy: checkInBy)
         .then((response) {
+      for (final checkInData in response) {
+        _printLabel(checkInData);
+      }
       Fluttertoast.showToast(
           msg: 'Welcome to ${widget.churchEvent.name}, enjoy the service!');
       setState(() {
         _isLoading = false;
       });
     }).onError((error, stackTrace) {
-      debugPrint(error.toString());
+      debugPrint(error?.toString());
+      debugPrintStack(stackTrace: stackTrace);
       if (error is ErrorResponse) {
         Fluttertoast.showToast(msg: 'Failed to check in: ${error.message}');
       } else {

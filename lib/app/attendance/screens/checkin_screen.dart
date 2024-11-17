@@ -49,6 +49,8 @@ class _CheckInScreenState extends State<CheckInScreen> {
           _activeChurchEvent = value;
         });
       }).onError((e, st) {
+        debugPrint(e.toString());
+        debugPrintStack(stackTrace: st);
         setState(() {
           _isLoading = false;
         });

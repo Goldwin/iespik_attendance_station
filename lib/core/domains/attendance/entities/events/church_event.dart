@@ -7,6 +7,7 @@ class ChurchEvent {
   final String eventScheduleId;
   final DateTime startDate;
   final DateTime endDate;
+  final List<String> labels;
 
   ChurchEvent(
       {required this.id,
@@ -14,7 +15,8 @@ class ChurchEvent {
       required this.eventScheduleId,
       required this.startDate,
       required this.endDate,
-      required this.activities});
+      required this.activities,
+      this.labels = const []});
 
   factory ChurchEvent.fromJson(Map<String, dynamic> json) {
     List<dynamic> jsonActivities = json['activities'];
@@ -28,6 +30,7 @@ class ChurchEvent {
         eventScheduleId: json['scheduleId'],
         startDate: DateTime.parse(json['startDate']),
         endDate: DateTime.parse(json['endDate']),
+        labels: json['labels']?.toList() ?? [],
         activities: activities);
   }
 }

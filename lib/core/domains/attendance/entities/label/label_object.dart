@@ -1,5 +1,3 @@
-
-
 enum LabelObjectType {
   text,
   image,
