@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:iespik_attendance_station/app/attendance/utilities/label/label_generator.dart';
 import 'package:iespik_attendance_station/core/commons/response.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
+import 'package:iespik_attendance_station/core/domains/printer/commands/printer_commands.dart';
 
 import 'person_checkin_tile.dart';
+
+typedef OnCheckInCompleted = void Function();
 
 class HouseholdCheckInForm extends StatefulWidget {
   final Household household;
   final ChurchEvent churchEvent;
   final ChurchEventAttendanceCommands churchAttendanceCommand;
+  final PrinterCommands printerCommands;
+  final OnCheckInCompleted onCheckInCompleted;
 
   const HouseholdCheckInForm(
       {required this.churchEvent,
       required this.household,
       required this.churchAttendanceCommand,
+      required this.printerCommands,
+      required this.onCheckInCompleted,
       super.key});
 
   @override
@@ -167,8 +175,14 @@ class _HouseholdCheckInFormState extends State<HouseholdCheckInForm> {
   }
 
   void _printLabel(ChurchEventAttendance attendance) {
-    for (final labelId in attendance.event.labels) {
-      getLabel(labelId).then((label) {}).onError((error, stackTrace) {});
+    for (final activityLabel in attendance.activity.labels) {
+      getLabel(activityLabel.labelId).then((label) {
+        generateLabel(label, attendance)
+            .toImage(label.paperSize[0].toInt(), label.paperSize[1].toInt())
+            .then((image) {
+          widget.printerCommands.print(image);
+        });
+      });
     }
   }
 
@@ -196,14 +210,11 @@ class _HouseholdCheckInFormState extends State<HouseholdCheckInForm> {
       for (final checkInData in response) {
         _printLabel(checkInData);
       }
-      Fluttertoast.showToast(
-          msg: 'Welcome to ${widget.churchEvent.name}, enjoy the service!');
       setState(() {
         _isLoading = false;
       });
+      widget.onCheckInCompleted();
     }).onError((error, stackTrace) {
-      debugPrint(error?.toString());
-      debugPrintStack(stackTrace: stackTrace);
       if (error is ErrorResponse) {
         Fluttertoast.showToast(msg: 'Failed to check in: ${error.message}');
       } else {

@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
         '/': (BuildContext context) => navGuard((ctx) => EventSelectionScreen(
               attendanceComponent,
               peopleComponent,
+              printerComponent,
             )),
         '/printer_config': (BuildContext context) =>
             navGuard((ctx) => PrinterConfigScreen(

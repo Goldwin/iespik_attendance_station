@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:iespik_attendance_station/app/attendance/widgets/checkin_completed_page.dart';
 import 'package:iespik_attendance_station/app/attendance/widgets/household_checkin_form.dart';
 import 'package:iespik_attendance_station/app/people/widgets/household_finder.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 import 'package:iespik_attendance_station/core/domains/people/people_component.dart';
+import 'package:iespik_attendance_station/core/domains/printer/index.dart';
 
 class CheckInScreen extends StatefulWidget {
   final ChurchEventSchedule _churchEventSchedule;
   final AttendanceComponent _attendanceComponent;
-  final PeopleComponent peopleComponent;
+  final PeopleComponent _peopleComponent;
+  final PrinterComponent _printerComponent;
 
   const CheckInScreen(this._churchEventSchedule, this._attendanceComponent,
-      this.peopleComponent,
+      this._printerComponent, this._peopleComponent,
       {super.key});
 
   @override
@@ -23,6 +26,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
   bool _isLoading = true;
   ChurchEvent? _activeChurchEvent;
   Household? _selectedHousehold;
+  bool _isCheckinCompleted = false;
 
   void _onStartOver() {
     setState(() {
@@ -64,20 +68,35 @@ class _CheckInScreenState extends State<CheckInScreen> {
       body = NoActiveEventBody(widget._churchEventSchedule);
     } else if (_selectedHousehold == null) {
       body = HouseholdFinder(
-        widget.peopleComponent.getHouseholdQueries(),
+        widget._peopleComponent.getHouseholdQueries(),
         onHouseholdSelected: (household) {
           setState(() {
             _selectedHousehold = household;
           });
         },
       );
-    } else {
+    } else if (!_isCheckinCompleted) {
       body = HouseholdCheckInForm(
         household: _selectedHousehold!,
         churchEvent: _activeChurchEvent!,
+        printerCommands: widget._printerComponent.getPrinterCommands(),
         churchAttendanceCommand:
             widget._attendanceComponent.getChurchEventAttendanceCommands(),
+        onCheckInCompleted: () {
+          setState(() {
+            _isCheckinCompleted = true;
+          });
+        },
       );
+    } else {
+      body = CheckinCompletedPage(
+          churchEventSchedule: widget._churchEventSchedule,
+          onTimeout: () {
+            setState(() {
+              _isCheckinCompleted = false;
+              _selectedHousehold = null;
+            });
+          });
     }
 
     return Scaffold(

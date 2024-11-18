@@ -4,12 +4,15 @@ import 'package:iespik_attendance_station/app/commons/screens/screen_template.da
 import 'package:iespik_attendance_station/app/commons/widgets/double_back_pop_scope.dart';
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 import 'package:iespik_attendance_station/core/domains/people/people_component.dart';
+import 'package:iespik_attendance_station/core/domains/printer/index.dart';
 
 class EventSelectionScreen extends StatefulWidget {
   final AttendanceComponent _attendanceComponent;
   final PeopleComponent _peopleComponent;
+  final PrinterComponent _printerComponent;
 
-  const EventSelectionScreen(this._attendanceComponent, this._peopleComponent,
+  const EventSelectionScreen(
+      this._attendanceComponent, this._peopleComponent, this._printerComponent,
       {super.key});
 
   @override
@@ -61,6 +64,7 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
                                     builder: (context) => CheckInScreen(
                                         _eventList[index],
                                         widget._attendanceComponent,
+                                        widget._printerComponent,
                                         widget._peopleComponent)));
                           },
                         );
