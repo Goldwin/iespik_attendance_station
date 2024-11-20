@@ -1,0 +1,126 @@
+{
+  "id": "3",
+  "name": "Kid Label",
+  "orientation": "landscape",
+  "paperSize": [
+    288.0,
+    166.5
+  ],
+  "margin": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "objects": [
+    {
+      "type": "text",
+      "name": "firstName",
+      "color": "#000000",
+      "styles": [
+        "bold"
+      ],
+      "size": 48,
+      "at": [
+        14.039999999999973,
+        9.406249999999998
+      ],
+      "width": 266.25,
+      "height": 62.849999999999994,
+      "overflow": "shrink_to_fit_and_wrap",
+      "align": "left",
+      "valign": "center"
+    },
+    {
+      "type": "horizontalLine",
+      "at": [
+        18.52,
+        137.28125
+      ],
+      "length": 256.3,
+      "color": "#000000",
+      "size": 1
+    },
+    {
+      "type": "text",
+      "name": "lastName",
+      "color": "#000000",
+      "styles": [
+        "bold"
+      ],
+      "size": 32,
+      "at": [
+        15.039999999999992,
+        66.75000000000004
+      ],
+      "width": 145.80000000000004,
+      "height": 34.49999999999983,
+      "overflow": "shrink_to_fit",
+      "align": "left",
+      "valign": "center"
+    },
+    {
+      "type": "text",
+      "name": "currentDateWithActivity",
+      "color": "#000000",
+      "styles": [],
+      "size": 20,
+      "at": [
+        18.04,
+        142.28125
+      ],
+      "width": 253.6,
+      "height": 33.2,
+      "overflow": "shrink_to_fit_and_wrap",
+      "align": "left",
+      "valign": "top"
+    },
+    {
+      "type": "text",
+      "name": "checkedInBy",
+      "color": "#000000",
+      "styles": [],
+      "size": 28,
+      "at": [
+        149.76,
+        114.46875
+      ],
+      "width": 124.12251708856705,
+      "height": 17.37996696194788,
+      "overflow": "shrink_to_fit",
+      "align": "right",
+      "valign": "center"
+    },
+    {
+      "at": [
+        16.500000000000004,
+        101.49999999999996
+      ],
+      "width": 107.49999999999999,
+      "height": 33.499999999999986,
+      "type": "text",
+      "align": "left",
+      "color": "#ffffff",
+      "size": 28,
+      "valign": "bottom",
+      "vertical": false,
+      "styles": [],
+      "padding": 2,
+      "overflow": "shrink_to_fit",
+      "rotate": 0,
+      "name": "securityCode",
+      "text": "CODE",
+      "background": "#000000"
+    },
+    {
+      "type": "image",
+      "image": "iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAFO0lEQVR4Xu2c61UWMRCGMxVoCViBWIFYgXQgVqBUoFagVKBWoFSgVCBWoFSgVDCeF7K6ZHOZJJNk17M5h19kc3l2bpnMt2RW1pj5lTHmxBhz3xjzwRjzhoh+r2WZtJaFMPORMeatMebQWdNPY8wpEX1ew1qHA2NmSBKk6mUCCIABHAAOa8OAWVAvLChAk7ZJTYeA6w5sBgp26kBKydMP4M6I6LJijOxHuwFjZtgmSBRAaTYAe2eMOe/hHJoCY2ZI0FOrdjXSJAEMTwo797UlPHVgVpIA6djj8SQb1+ozwbvQVNtqYBbQQ2MMwgL8tZakEqBwEJA8/AFgscPIAjaDAyiAA7uU4+FKNtviGQCD7QPASyK6kE7iBWY92SQ1gDMBko67xX4AiL9JGq98krgAZg31jy3uuMGaH7jQfMCgal8aTL7FIZ8QEdT2b/MBwxEFZ7q93R7FEONFgb22Z7sd2G2mBDyiwHDkeLbTuiHwkYjunEx8KgmdfbwDuyGAmA02PSphO7B/fHZgmZqzA9uBZRLI7L5L2A4sk0Bm913CdmB3CXy3KRtkX5HARMalpuHO4M5tli9wRaYSGdOttcW5j5kRpb+v2IjoaLTFs+RzIsKRbtGYueao918CC8ICPZsl/lYoZSJgW8qHRWFNkJiZC4GJ8mFbASaFhXuHUglLZ1ytGJe+kcIXmfXYNe45QzbLHYmZP1mPmTUJOhPRwimGLkFwGVDrkrMXKHgAsI6k94zMDA9ZetO+CFpvIDbwLLF9I04qfRE9YWEPi+RhDJh2Xv8UxXFT7QMzI6iEu78nkCp06Q0Lcy48ZAyYpuFfBJQzd49kZQraCFhY4sJDBoEpGv5rIgrejNsYKQZtFCyvwU8B0zgieQ3nXA0j0IbBstU/MBuLFqytYGYNO5YENlNP2LTJIYyEhSV5zUhKwlBPoVEysAj+Ap4Zqgv1vKnj6BQ6hHxOcM3R6h1m1ojHMAYMaLJ03BbBHAyGhSKUYMlWCphW5kIMTRhm4FBdE5TGplnkwOadU8BqzmHuotSgNYQVDCemzSQL6pTUcpqvGlpjWFF1jBr9aYcKWUs1SWsMC+tMZkAkEgbv9UtqW4T9siWtAyyEMnA4UeeUBGbjpJo0b4ihGFoHWFij97DtLl4KTCsmy1bPTrCwrkeScEYEzEpZq6qeoKR1hCU6kYiM/sz4a2YwXElD5TKyqOf25eCaDzGg+1NAoYnM7ubNTPhGEUtYYynL3qHiA2LpypIwC0wzkFXcc9VQItslDlzdpVRejFbtrMHDIs84nzdLJa2UwWPCUKcypQ32pzok4q7D3N8dZQOz0DRyZaq7LxgsmPOKjVUEzELTSP0U7FPlkSxDX6WSszBjyw4gy9CrALNSppUvUxEb4SBFqljsJT1es9UJQLj/rG74Xbj3ckM6SrENm6kmshmI1NfuNa+sV0ymypsY/fmglTVY0pdb26/YbqnZMAdabXlkLZDY88nEoHTyapV0oLXIm0n3EurnrZEoHVQVmPWca4KWffRJgVQHtiJoxcFpc6Pvm2DwIV1dstTisNjbGAStGSzstYlKDnQETWF1AdbxCNUcVjdgFlrLOE0tzhriJUOTCioOU+t1/48k4LH7MY7cQXL6N7dh7mJsSROqG2u/XICKbMAq/lJTDqguXjLhQWtSQ6rRew647hLmeFAkIeelmqm1I+Nw0lMF3QUNBTYthpkl0naGy91UsUiKeO3/VwHMelHcRkHaXNuGj6HhVrzr1zRDYFcDbCZtCD+mDwRBorw/HK2VlNLn/wAL9UlrgnFmNgAAAABJRU5ErkJggg==",
+      "at": [
+        97.90000000000009,
+        107.54863205813193
+      ],
+      "width": 22.20136794186797,
+      "height": 22.20136794186798
+    }
+  ]
+}

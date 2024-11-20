@@ -1,0 +1,79 @@
+{
+  "id": "4",
+  "name": "Volunteer",
+  "orientation": "landscape",
+  "paperSize": [
+    288.0,
+    166.5
+  ],
+  "margin": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "objects": [
+    {
+      "type": "text",
+      "name": "firstName",
+      "color": "#000000",
+      "styles": [
+        "bold"
+      ],
+      "size": 48,
+      "at": [
+        13.0,
+        13.400000000000007
+      ],
+      "width": 253.712429673218,
+      "height": 68.64070478806318,
+      "overflow": "shrink_to_fit_and_wrap",
+      "align": "left",
+      "valign": "center"
+    },
+    {
+      "type": "horizontalLine",
+      "at": [
+        10.558714672861024,
+        138.24999999999997
+      ],
+      "length": 266.222570654278,
+      "strokeColor": "#000000",
+      "size": 1
+    },
+    {
+      "type": "text",
+      "name": "lastName",
+      "color": "#000000",
+      "styles": [
+        "bold"
+      ],
+      "size": 48,
+      "at": [
+        13.0,
+        76.56431624416398
+      ],
+      "width": 265.61613458004507,
+      "height": 53.435683755836145,
+      "overflow": "shrink_to_fit_and_wrap",
+      "align": "left",
+      "valign": "center"
+    },
+    {
+      "type": "text",
+      "name": "currentDateWithActivity",
+      "color": "#000000",
+      "styles": [],
+      "size": 20,
+      "at": [
+        11.52,
+        145.6875
+      ],
+      "width": 268.5999999999998,
+      "height": 18.19999999999997,
+      "overflow": "shrink_to_fit_and_wrap",
+      "align": "left",
+      "valign": "top"
+    }
+  ]
+}
