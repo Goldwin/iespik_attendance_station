@@ -4,6 +4,9 @@ import 'package:http/http.dart';
 import 'package:iespik_attendance_station/core/commons/auth.dart';
 import 'package:iespik_attendance_station/core/commons/response.dart';
 
+import '../../../domains/attendance/entities/people/household.dart';
+import '../../../domains/attendance/entities/people/person.dart';
+
 class PersonData {
   final String id;
   final String firstName;
@@ -75,6 +78,99 @@ class PeopleService {
               (List<Map<String, dynamic>> list) {
         return list.map(HouseholdData.fromJson).toList();
       });
+
+      if (apiResponse.isError()) {
+        throw apiResponse.error!;
+      }
+
+      if (apiResponse.data == null) {
+        throw Exception('No data returned');
+      }
+
+      return apiResponse.data!;
+    });
+  }
+
+  Future<Household> addHousehold(Household household) async {
+    final body = jsonEncode(<String, dynamic>{
+      'name': household.name,
+      'headPersonId': household.head.id,
+      'memberPersonIds': household.members.map((e) => e.id).toList()
+    });
+    final token = await getToken();
+    return post(Uri.parse('$peopleServiceUrl/households'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer $token'
+            },
+            body: body)
+        .then((response) {
+      Map<String, dynamic> x =
+          jsonDecode(response.body) as Map<String, dynamic>;
+
+      APIResponse<Household> apiResponse =
+          APIResponse<Household>.fromJson(x, Household.fromJson);
+
+      if (apiResponse.isError()) {
+        throw apiResponse.error!;
+      }
+
+      if (apiResponse.data == null) {
+        throw Exception('No data returned');
+      }
+
+      return apiResponse.data!;
+    });
+  }
+
+  Future<Household> updateHousehold(Household household) async {
+    final body = jsonEncode(<String, dynamic>{
+      'name': household.name,
+      'headPersonId': household.head.id,
+      'memberPersonIds': household.members.map((e) => e.id).toList()
+    });
+    final token = await getToken();
+    return put(Uri.parse('$peopleServiceUrl/households/${household.id}'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer $token'
+            },
+            body: body)
+        .then((response) {
+      Map<String, dynamic> x =
+          jsonDecode(response.body) as Map<String, dynamic>;
+
+      APIResponse<Household> apiResponse =
+          APIResponse<Household>.fromJson(x, Household.fromJson);
+
+      if (apiResponse.isError()) {
+        throw apiResponse.error!;
+      }
+
+      if (apiResponse.data == null) {
+        throw Exception('No data returned');
+      }
+
+      return apiResponse.data!;
+    });
+  }
+
+  Future<Person> addPerson(Person person) async {
+    post(Uri.parse('$peopleServiceUrl/people/persons'));
+    var body = jsonEncode(person);
+    final token = await getToken();
+    return post(Uri.parse('$peopleServiceUrl/persons'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer $token'
+            },
+            body: body)
+        .then((response) {
+      Map<String, dynamic> x =
+          jsonDecode(response.body) as Map<String, dynamic>;
+
+      APIResponse<Person> apiResponse =
+          APIResponse<Person>.fromJson(x, Person.fromJson);
 
       if (apiResponse.isError()) {
         throw apiResponse.error!;

@@ -41,4 +41,20 @@ class Person {
       anniversary: json['anniversary'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['firstName'] = firstName;
+    data['middleName'] = middleName;
+    data['lastName'] = lastName;
+    data['profilePictureUrl'] = profilePictureUrl;
+    data['emailAddress'] = emailAddress;
+    data['phoneNumber'] = phoneNumber;
+    data['maritalStatus'] = maritalStatus;
+    data['birthday'] = birthday;
+    data['gender'] = gender;
+    data['anniversary'] = anniversary;
+    return data;
+  }
 }

@@ -10,6 +10,8 @@ import 'package:iespik_attendance_station/app/people/widgets/household_finder.da
 import 'package:iespik_attendance_station/core/domains/attendance/index.dart';
 import 'package:iespik_attendance_station/core/domains/people/people_component.dart';
 
+typedef OnPersonAdded = void Function(Household household);
+
 class AddPersonScreen extends StatefulWidget {
   final PeopleComponent peopleComponent;
 
@@ -21,10 +23,19 @@ class AddPersonScreen extends StatefulWidget {
 
 class _AddPersonScreenState extends State<AddPersonScreen> {
   AddPersonScreenStage _stage = AddPersonScreenStage.addPersonModeSelection;
-  Household? selectedHousehold;
+  Household? _selectedHousehold;
 
   @override
   Widget build(BuildContext context) {
+    final onPersonAdded =
+        ModalRoute.of(context)!.settings.arguments as OnPersonAdded;
+
+    onCompleted(Household household) {
+      onPersonAdded(household);
+      Fluttertoast.showToast(msg: 'Person added successfully');
+      Navigator.pop(context);
+    }
+
     Widget body;
     switch (_stage) {
       case AddPersonScreenStage.addPersonModeSelection:
@@ -46,7 +57,7 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
         body = CreateHouseholdForm(onHouseholdCreated: (household) {
           setState(() {
             _stage = AddPersonScreenStage.registerNewPerson;
-            selectedHousehold = household;
+            _selectedHousehold = household;
           });
         });
       case AddPersonScreenStage.searchExistingHousehold:
@@ -54,17 +65,28 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
             onHouseholdSelected: (household) {
           setState(() {
             _stage = AddPersonScreenStage.registerNewPerson;
-            selectedHousehold = household;
+            _selectedHousehold = household;
           });
         });
       case AddPersonScreenStage.registerNewPerson:
         body = AddPersonForm(
           onSubmit: (Person person) {
-            debugPrint('person: ${person.firstName}');
-            Fluttertoast.showToast(msg: 'Person added successfully');
-            Navigator.pop(context);
+            widget.peopleComponent
+                .getPersonCommands()
+                .addPerson(person, _selectedHousehold!)
+                .then((household) {
+              onCompleted(household);
+            }).onError((error, st) {
+              Fluttertoast.showToast(
+                  msg:
+                      'Failed to add new person. Please contract the administrator. error: ${error.toString()}');
+              debugPrint(error.toString());
+              debugPrintStack(stackTrace: st);
+            });
           },
         );
+      case AddPersonScreenStage.finished:
+        body = Placeholder();
     }
     return ScreenTemplate(
       body: body,

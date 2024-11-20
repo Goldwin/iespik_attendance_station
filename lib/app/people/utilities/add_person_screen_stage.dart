@@ -2,7 +2,8 @@ enum AddPersonScreenStage {
   addPersonModeSelection,
   createHousehold,
   searchExistingHousehold,
-  registerNewPerson
+  registerNewPerson,
+  finished
 }
 
 extension AddPersonScreenStageExtension on AddPersonScreenStage {

@@ -8,7 +8,8 @@ Future<String> getToken() async {
   String token = pref.getString(tokenKey) ?? "";
   int tokenExpiredAt = pref.getInt(tokenExpiredAtKey) ?? 0;
 
-  if (token.isNotEmpty && tokenExpiredAt < DateTime.now().second) {
+  if (token.isNotEmpty &&
+      tokenExpiredAt < DateTime.now().millisecondsSinceEpoch) {
     pref.remove(tokenKey);
     pref.remove(tokenExpiredAtKey);
     return "";
@@ -21,7 +22,8 @@ Future<void> setToken(String token) async {
   var pref = await SharedPreferences.getInstance();
   pref.setString(tokenKey, token);
 
-  int tokenExpiredAt = DateTime.now().second + 7 * 24 * 60 * 60;
+  int tokenExpiredAt =
+      DateTime.now().add(Duration(days: 1)).millisecondsSinceEpoch;
   pref.setInt('tokenExpiredAt', tokenExpiredAt);
 }
 

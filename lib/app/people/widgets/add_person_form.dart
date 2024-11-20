@@ -15,12 +15,18 @@ class AddPersonForm extends StatefulWidget {
 class _AddPersonFormState extends State<AddPersonForm> {
   final _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _formData = {'id': ''};
+  final _birthdateController = TextEditingController();
+  final _anniversaryDateController = TextEditingController();
+
+  @override
+  void dispose() {
+    _birthdateController.dispose();
+    _anniversaryDateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final birthdateController = TextEditingController();
-    final anniversaryDateController = TextEditingController();
-
     return Form(
       key: _formKey,
       child: ListView(
@@ -77,7 +83,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
               onSaved: (value) {
                 _formData['birthday'] = value;
               },
-              controller: birthdateController,
+              controller: _birthdateController,
               readOnly: true,
               onTap: () {
                 showDatePicker(
@@ -86,7 +92,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
                         lastDate: DateTime.now(),
                         initialDatePickerMode: DatePickerMode.year)
                     .then((date) {
-                  birthdateController.text = (date != null)
+                  _birthdateController.text = (date != null)
                       ? '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}'
                       : '';
                 });
@@ -98,7 +104,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
               onSaved: (value) {
                 _formData['anniversaryDate'] = value;
               },
-              controller: anniversaryDateController,
+              controller: _anniversaryDateController,
               readOnly: true,
               onTap: () {
                 showDatePicker(
@@ -107,7 +113,7 @@ class _AddPersonFormState extends State<AddPersonForm> {
                         lastDate: DateTime.now(),
                         initialDatePickerMode: DatePickerMode.year)
                     .then((date) {
-                  anniversaryDateController.text = (date != null)
+                  _anniversaryDateController.text = (date != null)
                       ? '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}'
                       : '';
                 });

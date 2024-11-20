@@ -1,5 +1,7 @@
+import 'package:iespik_attendance_station/core/domains/attendance/entities/people/household.dart';
+
 import '../../attendance/entities/people/person.dart';
 
 abstract class PersonCommands {
-  Future<Person> addPerson(Person person);
+  Future<Household> addPerson(Person person, Household household);
 }

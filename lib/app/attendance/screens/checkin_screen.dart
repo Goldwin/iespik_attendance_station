@@ -35,8 +35,12 @@ class _CheckInScreenState extends State<CheckInScreen> {
   }
 
   void addPerson() {
-    debugPrint('Push Person Here');
-    Navigator.pushNamed(context, '/add_person');
+    Navigator.pushNamed(context, '/add_person',
+        arguments: (Household household) {
+      setState(() {
+        _selectedHousehold = household;
+      });
+    });
   }
 
   @override

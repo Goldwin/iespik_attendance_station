@@ -1,4 +1,4 @@
-import 'package:iespik_attendance_station/core/domains/people/commands/household_commands.dart';
+import 'package:iespik_attendance_station/core/data/people/commands/person_commands.dart';
 import 'package:iespik_attendance_station/core/domains/people/commands/person_commands.dart';
 import 'package:iespik_attendance_station/core/domains/people/queries/household_queries.dart';
 
@@ -9,9 +9,11 @@ import 'queries/household_queries.dart';
 class APIPeopleComponentImpl extends PeopleComponent {
   final PeopleService _peopleService = PeopleService();
   late final HouseholdQueries _householdQueries;
+  late final PersonCommands _personCommands;
 
   APIPeopleComponentImpl() {
-    _householdQueries = HouseholdQueriesImpl(_peopleService);
+    _householdQueries = APIHouseholdQueriesImpl(_peopleService);
+    _personCommands = APIPersonCommandsImpl(_peopleService);
   }
 
   @override
@@ -20,14 +22,8 @@ class APIPeopleComponentImpl extends PeopleComponent {
   }
 
   @override
-  HouseholdCommands getHouseholdCommands() {
-    // TODO: implement getHouseholdCommands
-    throw UnimplementedError();
-  }
-
-  @override
   PersonCommands getPersonCommands() {
     // TODO: implement getPersonCommands
-    throw UnimplementedError();
+    return _personCommands;
   }
 }

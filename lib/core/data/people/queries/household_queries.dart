@@ -3,10 +3,10 @@ import '../../../domains/attendance/entities/people/person.dart';
 import '../../../domains/people/queries/household_queries.dart';
 import '../../../infra/api/people/people_client.dart';
 
-class HouseholdQueriesImpl extends HouseholdQueries {
+class APIHouseholdQueriesImpl extends HouseholdQueries {
   final PeopleService _peopleService;
 
-  HouseholdQueriesImpl(this._peopleService);
+  APIHouseholdQueriesImpl(this._peopleService);
 
   Person _personMapper(PersonData personData) => Person(
         id: personData.id,
