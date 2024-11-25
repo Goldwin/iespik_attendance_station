@@ -40,36 +40,46 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
     if (_isLoading) {
       _fetchAvailableEventSchedules();
     }
+
+    final Widget child;
+    if (_isLoading) {
+      child = Center(child: CircularProgressIndicator());
+    } else if (_eventList.isEmpty) {
+      child = Center(
+          child: Text(
+              'Failed to fetch available events. Please check your internet connection'));
+    } else {
+      child = RefreshIndicator(
+        onRefresh: () async {
+          setState(() {
+            _isLoading = true;
+          });
+        },
+        child: ListView.builder(
+            itemCount: _eventList.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: Icon(Icons.event),
+                title: Text(_eventList[index].name),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CheckInScreen(
+                              _eventList[index],
+                              widget._attendanceComponent,
+                              widget._printerComponent,
+                              widget._peopleComponent)));
+                },
+              );
+            }),
+      );
+    }
+
     return ScreenTemplate(
         title: 'Select Event',
         body: DoubleBackQuit(
-          child: _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : RefreshIndicator(
-                  onRefresh: () async {
-                    setState(() {
-                      _isLoading = true;
-                    });
-                  },
-                  child: ListView.builder(
-                      itemCount: _eventList.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Icon(Icons.event),
-                          title: Text(_eventList[index].name),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CheckInScreen(
-                                        _eventList[index],
-                                        widget._attendanceComponent,
-                                        widget._printerComponent,
-                                        widget._peopleComponent)));
-                          },
-                        );
-                      }),
-                ),
+          child: child,
         ));
   }
 }

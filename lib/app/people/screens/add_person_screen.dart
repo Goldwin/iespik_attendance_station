@@ -30,6 +30,8 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
     final onPersonAdded =
         ModalRoute.of(context)!.settings.arguments as OnPersonAdded;
 
+    final width = MediaQuery.of(context).size.width;
+
     onCompleted(Household household) {
       onPersonAdded(household);
       Fluttertoast.showToast(msg: 'Person added successfully');
@@ -89,7 +91,13 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
         body = Placeholder();
     }
     return ScreenTemplate(
-      body: body,
+      body: Padding(
+        padding: EdgeInsets.only(
+            left: width < 600 ? 20 : 50.0,
+            right: width < 600 ? 20 : 50.0,
+            top: 20.0),
+        child: body,
+      ),
       title: _stage.title,
       leading: IconButton(
           onPressed: () {
