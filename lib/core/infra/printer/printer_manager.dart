@@ -41,6 +41,9 @@ class PrinterManager implements PrinterQueries, PrinterCommands {
 
   @override
   Future<PrintResult> print(Image img) async {
+    if (_selectedPrinter == null) {
+      return PrintResult.failed("No printer selected");
+    }
     var task = PrintingTask(id: ++id, img: img);
     _executeTask(task);
     return task.completer.future;
@@ -64,6 +67,9 @@ class PrinterManager implements PrinterQueries, PrinterCommands {
 
   @override
   Future<PrintResult> testPrint() async {
+    if (_selectedPrinter == null) {
+      return PrintResult.failed("No printer selected");
+    }
     File file = await _getTestLabelFile();
 
     Map<dynamic, dynamic>? result = await _channel.invokeMapMethod("print", {
